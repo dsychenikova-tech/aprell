@@ -1,486 +1,486 @@
-!DOCTYPE html
-html lang=ru
-head
-    meta charset=UTF-8
-    meta name=viewport content=width=device-width, initial-scale=1.0
-    titleАпрельtitle
-    link href=httpsfonts.googleapis.comcss2family=Interwght@400;500;600;700&display=swap rel=stylesheet
-    script src=httpscdn.jsdelivr.netnpmfuse.js@6.6.2script
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Апрель</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     
-    style
-        root {
-            --bg-color #faf9fc;
-            --card-bg #ffffff;
-            --primary #DC007B;
-            --primary-dark #b80067;
-            --secondary #2F2580;
-            --text-main #1f1a3a;
-            --text-muted #6e688a;
-            --border #e6e3f2;
+    <style>
+        :root {
+            --bg-color: #faf9fc;
+            --card-bg: #ffffff;
+            --primary: #DC007B;
+            --primary-dark: #b80067;
+            --secondary: #2F2580;
+            --text-main: #1f1a3a;
+            --text-muted: #6e688a;
+            --border: #e6e3f2;
         }
 
-         {
-            box-sizing border-box;
-            margin 0;
-            padding 0;
-            font-family 'Inter', sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color var(--bg-color);
-            color var(--text-main);
-            min-height 100vh;
-            display flex;
-            flex-direction column;
-            align-items center;
-            justify-content center;
-            padding 40px 20px;
-            position relative;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
         }
 
         .main-wrapper {
-            width 100%;
-            max-width 640px;
-            display flex;
-            flex-direction column;
-            align-items center;
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            text-align center;
-            margin-bottom 32px;
-            display flex;
-            align-items center;
-            gap 16px;
+            text-align: center;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         header h1 {
-            font-size 42px;
-            font-weight 700;
-            color var(--secondary);
-            letter-spacing -0.03em;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: -0.03em;
         }
 
         .admin-btn {
-            background transparent;
-            border 2px solid var(--border);
-            color var(--secondary);
-            padding 8px 14px;
-            border-radius 12px;
-            font-size 13px;
-            font-weight 600;
-            cursor pointer;
-            transition all 0.2s ease;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--secondary);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .admin-btnhover {
-            border-color var(--secondary);
-            background rgba(47, 37, 128, 0.04);
+        .admin-btn:hover {
+            border-color: var(--secondary);
+            background: rgba(47, 37, 128, 0.04);
         }
 
         .search-box {
-            width 100%;
-            position relative;
-            margin-bottom 20px;
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
         }
 
         .search-input {
-            width 100%;
-            padding 20px 28px;
-            font-size 17px;
-            background var(--card-bg);
-            border 2px solid var(--border);
-            border-radius 100px;
-            color var(--text-main);
-            outline none;
-            transition all 0.2s ease;
-            box-shadow 0 4px 20px rgba(47, 37, 128, 0.03);
+            width: 100%;
+            padding: 20px 28px;
+            font-size: 17px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(47, 37, 128, 0.03);
         }
 
-        .search-inputfocus {
-            border-color var(--primary);
-            box-shadow 0 0 0 4px rgba(220, 0, 123, 0.1);
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(220, 0, 123, 0.1);
         }
 
         .results-container {
-            width 100%;
-            display flex;
-            flex-direction column;
-            gap 12px;
-            max-height calc(100vh - 250px);
-            overflow-y auto;
-            padding-bottom 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: calc(100vh - 250px);
+            overflow-y: auto;
+            padding-bottom: 20px;
         }
 
         .shelf-card {
-            background var(--card-bg);
-            border 1px solid var(--border);
-            border-radius 20px;
-            padding 24px;
-            position relative;
-            overflow hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .shelf-cardbefore {
-            content '';
-            position absolute;
-            top 0;
-            left 0;
-            width 5px;
-            height 100%;
-            background var(--primary);
+        .shelf-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
         }
 
         .shelf-header {
-            display flex;
-            justify-content space-between;
-            align-items center;
-            margin-bottom 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
         .shelf-number {
-            font-size 18px;
-            font-weight 700;
-            color var(--secondary);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
         .shelf-group {
-            font-size 12px;
-            background rgba(47, 37, 128, 0.05);
-            color var(--secondary);
-            padding 4px 10px;
-            border-radius 20px;
-            font-weight 600;
+            font-size: 12px;
+            background: rgba(47, 37, 128, 0.05);
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
         }
 
         .drugs-title {
-            font-size 11px;
-            text-transform uppercase;
-            letter-spacing 0.05em;
-            color var(--text-muted);
-            margin-bottom 8px;
-            font-weight 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .drugs-list {
-            display flex;
-            flex-wrap wrap;
-            gap 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .drug-tag {
-            background #f4f3f9;
-            border 1px solid var(--border);
-            padding 6px 12px;
-            border-radius 10px;
-            font-size 13px;
-            color var(--text-main);
+            background: #f4f3f9;
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-main);
         }
 
         .drug-tag.matched {
-            background var(--primary);
-            color #ffffff;
-            font-weight 600;
-            border-color var(--primary);
+            background: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+            border-color: var(--primary);
         }
 
         .no-results {
-            text-align center;
-            padding 30px;
-            color var(--text-muted);
-            font-size 14px;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 14px;
         }
 
-         МОДАЛЬНОЕ ОКНО АДМИНКИ 
+        /* МОДАЛЬНОЕ ОКНО АДМИНКИ */
         .admin-modal {
-            display none;
-            position fixed;
-            top 0;
-            left 0;
-            width 100%;
-            height 100%;
-            background rgba(31, 26, 58, 0.6);
-            backdrop-filter blur(4px);
-            z-index 100;
-            justify-content center;
-            align-items center;
-            padding 20px;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(31, 26, 58, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .admin-modal.active {
-            display flex;
+            display: flex;
         }
 
         .admin-content {
-            background var(--card-bg);
-            width 100%;
-            max-width 750px;
-            height 85vh;
-            border-radius 24px;
-            display flex;
-            flex-direction column;
-            box-shadow 0 20px 40px rgba(31, 26, 58, 0.2);
-            overflow hidden;
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 750px;
+            height: 85vh;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(31, 26, 58, 0.2);
+            overflow: hidden;
         }
 
         .admin-header {
-            padding 20px 24px;
-            border-bottom 1px solid var(--border);
-            display flex;
-            justify-content space-between;
-            align-items center;
-            background #ffffff;
-            flex-shrink 0;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            flex-shrink: 0;
         }
 
         .admin-header h2 {
-            font-size 20px;
-            color var(--secondary);
+            font-size: 20px;
+            color: var(--secondary);
         }
 
         .close-admin {
-            background none;
-            border none;
-            font-size 26px;
-            cursor pointer;
-            color var(--text-muted);
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--text-muted);
         }
 
         .admin-body {
-            padding 20px 24px;
-            overflow-y auto;
-            flex 1;
-            display flex;
-            flex-direction column;
-            gap 12px;
-            background #faf9fc;
+            padding: 20px 24px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #faf9fc;
         }
 
-         КАРТОЧКИ ШКАФОВ В АДМИНКЕ (АККОРДЕОН) 
+        /* КАРТОЧКИ ШКАФОВ В АДМИНКЕ (АККОРДЕОН) */
         .admin-card {
-            background #ffffff;
-            border 1px solid var(--border);
-            border-radius 14px;
-            margin-bottom 8px;
-            box-shadow 0 2px 5px rgba(0,0,0,0.02);
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .admin-card-header {
-            padding 16px 20px;
-            cursor pointer;
-            display flex;
-            justify-content space-between;
-            align-items center;
-            background #ffffff;
-            border-radius 14px;
-            user-select none;
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 14px;
+            user-select: none;
         }
 
-        .admin-card-headerhover {
-            background rgba(47, 37, 128, 0.02);
+        .admin-card-header:hover {
+            background: rgba(47, 37, 128, 0.02);
         }
 
         .admin-card-title {
-            display flex;
-            flex-direction column;
-            gap 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .admin-card-title strong {
-            font-size 15px;
-            color var(--secondary);
+            font-size: 15px;
+            color: var(--secondary);
         }
 
         .admin-card-title span {
-            font-size 12px;
-            color var(--text-muted);
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .admin-card-arrow {
-            font-size 12px;
-            color var(--text-muted);
-            background #f4f3f9;
-            width 26px;
-            height 26px;
-            border-radius 50%;
-            display flex;
-            align-items center;
-            justify-content center;
-            transition transform 0.2s ease;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: #f4f3f9;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
         }
 
         .admin-card.open .admin-card-arrow {
-            transform rotate(180deg);
-            background rgba(47, 37, 128, 0.1);
-            color var(--secondary);
+            transform: rotate(180deg);
+            background: rgba(47, 37, 128, 0.1);
+            color: var(--secondary);
         }
 
         .admin-card-body {
-            display none;
-            padding 16px 20px 20px 20px;
-            border-top 1px solid var(--border);
-            flex-direction column;
-            gap 14px;
+            display: none;
+            padding: 16px 20px 20px 20px;
+            border-top: 1px solid var(--border);
+            flex-direction: column;
+            gap: 14px;
         }
 
         .admin-card.open .admin-card-body {
-            display flex;
+            display: flex;
         }
 
         .chips-box {
-            display flex;
-            flex-wrap wrap;
-            gap 6px;
-            max-height 180px;
-            overflow-y auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-height: 180px;
+            overflow-y: auto;
         }
 
         .chip {
-            display inline-flex;
-            align-items center;
-            gap 6px;
-            background #f4f3f9;
-            border 1px solid var(--border);
-            padding 6px 10px;
-            border-radius 8px;
-            font-size 13px;
-            color var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f4f3f9;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-main);
         }
 
         .chip-del {
-            background none;
-            border none;
-            color var(--primary);
-            cursor pointer;
-            font-weight bold;
-            font-size 15px;
-            line-height 1;
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 1;
         }
 
         .add-row {
-            display flex;
-            gap 8px;
+            display: flex;
+            gap: 8px;
         }
 
         .add-input {
-            flex 1;
-            padding 10px 14px;
-            border 1px solid var(--border);
-            border-radius 10px;
-            font-size 13px;
-            outline none;
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
         }
 
-        .add-inputfocus {
-            border-color var(--primary);
+        .add-input:focus {
+            border-color: var(--primary);
         }
 
         .add-btn {
-            background var(--primary);
-            color #ffffff;
-            border none;
-            padding 0 18px;
-            border-radius 10px;
-            font-weight bold;
-            font-size 18px;
-            cursor pointer;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
         }
 
-        .add-btnhover {
-            background var(--primary-dark);
+        .add-btn:hover {
+            background: var(--primary-dark);
         }
-    style
-head
-body
+    </style>
+</head>
+<body>
 
-    div class=main-wrapper
-        header
-            h1Апрельh1
-            button class=admin-btn id=openAdminАдминкаbutton
-        header
+    <div class="main-wrapper">
+        <header>
+            <h1>Апрель</h1>
+            <button class="admin-btn" id="openAdmin">Админка</button>
+        </header>
 
-        div class=search-box
-            input type=text id=searchInput class=search-input placeholder=Введите название препарата... autofocus
-        div
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Введите название препарата..." autofocus>
+        </div>
 
-        div id=results class=results-containerdiv
-    div
+        <div id="results" class="results-container"></div>
+    </div>
 
-    !-- МОДАЛЬНОЕ ОКНО АДМИНКИ --
-    div class=admin-modal id=adminModal
-        div class=admin-content
-            div class=admin-header
-                h2Управление шкафами (1–52)h2
-                button class=close-admin id=closeAdmin&times;button
-            div
-            div class=admin-body id=adminAccordionContainerdiv
-        div
-    div
+    <!-- МОДАЛЬНОЕ ОКНО АДМИНКИ -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>Управление шкафами (1–52)</h2>
+                <button class="close-admin" id="closeAdmin">&times;</button>
+            </div>
+            <div class="admin-body" id="adminAccordionContainer"></div>
+        </div>
+    </div>
 
-    script
+    <script>
         const initialPharmacyData = [
-            { shelf Шкаф № 1, group Средства для снижения давления  Комбинации, drugs [Амлодипин, Нормодипин, Тенокс, Леркамен, Финоптин, Верапамил, Изоптин СР, Плендил, Дилтиазем, Алтизем РР, Экватор, Висдекал, Эгипрес, Эквамер, Эквапресс, Эксфорж, Вамлосет, Лизиноприл, Рамиприл, Лерканидипин, Фелодипин, Амлодипин в комбинациях, Амлодипин+Валсартан+Гидрохлортиазид, Ирбесартан+Амлодипин, Лизиноприл+Амлодипин, Амлодипин+Индапамид+Лизиноприл, Амлодипин+Лизиноприл+Розувастатин, Амлодипин+Рамиприл, Амлодипин+Лозартан] },
-            { shelf Шкаф № 2, group Антагонисты рецепторов ангиотензина II (БРА), drugs [Козаар, Лориста, Вазотенз, Лозартан-СЗ, Лозартан, Презартан, Атаканд, Кандекор, Гизаар, Кандесартан-СЗ, Капозид, Кандесартан-Тева, Гипосарт, Кандесартан] },
-            { shelf Шкаф № 3, group БРА и комбинированные антигипертензивные средства, drugs [Азилсартана медоксомил, Эдарби, Валсартан, Диован, Вальсакор, Нортиван, Ко-Диован, Ко-Валсартан, Юперио, Апровель, Ирбесартан-СЗ, Апролид А, Ко-Апровель, Ирбесартан + Гидрохлоротиазид, Кардосал, Олмесарткроно, Олмесартан-Сандоз, Седатар H, Кардосал Плюс, Эквалок, Микардис, Телзап, Пристукалор, Микардис Плюс, Телзап Н] },
-            { shelf Шкаф № 4, group Бета-адреноблокаторы (селективные и комбинированные), drugs [Конкор, Конкор Кор, Бисопролол-Акрихин, Ниперт, Арител, Коронал, Бипрол, Бисопролол, Карведилол, Дилатренд, Акридилол, Карведилол-СЗ, Арител А, Лодоз, Периндоприл, Престариум] },
-            { shelf Шкаф № 5, group Бета-адреноблокаторы (кардиоселективные и неселективные), drugs [Тенолол, Атенолол, Теноретик, Локрен, Метопролол, Метокард, Беталок ЗОК, Эгилок С, Небиволол, Небилет, Небикар, Небиволол-СЗ] },
-            { shelf Шкаф № 6, group Антиаритмические, антиангинальные и кардиопротекторные средства, drugs [Кордарон, Амиодарон-Акрихин, Анаприлин, Пропранолол, Аллопинин, Сотагексал, Тразикор, Соталол, Корватон, Молсидомин, Этацизин, Ритмонорм, Пропафенон, Дигоксин, Кораксан, Ивабрадин, Кардикет, Изодинит, Моночинкве, Эфокс Лонг, Нитроглицерин, Нитроспрей, Нитронг, Пентаэритритила тетранитрат, Ранекса] },
-            { shelf Шкаф № 7, group Ингибиторы АПФ и комбинированные гипотензивные средства, drugs [Зокардис, Диротон, Лизиноприл, Лизиноприл Рихтер, Диротон Плюс, Лизирезид, Ко-Диротон, Рамиприл, Тритэце, Хартил, Рамипирил-СЗ, Эгипрес, Пирамил Н, Фозикард, Моноприл, Фозикард Н, Эналаприл, Энап, Энап Н, Энап НЛ] },
-            { shelf Шкаф № 8, group Вазодилататоры, центральные гипотензивные и прочие средства, drugs [Каптоприл, Капотен, Капозид, Физиотенз, Моксонитекс, Тонопрен, Допегит, Нифедипин, Альбарел, Раунатин, Рилменидин, Коринфар ретард, Моксонидин] },
-            { shelf Шкаф № 9, group Ингибиторы АПФ, комбинации и сопутствующие средства, drugs [Периндоприл, Престариум, Периндоприл-Рихтер, Пенромед, Периндоприл-СЗ, Престанс, Альнева, Ко-Перинева, Норипрел, Норипрел А Форте, Ко-Престариум, Периндап, Розувастатин, Трипликсакс] },
-            { shelf Шкаф № 10, group Диуретики и мочегонные средства, drugs [Диакарб, Ацетазоламид, Гипотиазид, Арифон Ретард, Индапамид, Индап, Верошпирон, Альдактон, Брилука, Диувер, Торасемид-СЗ, Торсид, Ауризон, Дихлотиазид, Триампур, Фуросемид, Инспра, Эплеренон-СЗ, Эпрелон] },
-            { shelf Шкаф № 11, group Антикоагулянты, антиагреганты и ангиопротекторы, drugs [Апиксабан, Эликвис, Варфарин, Варфарин Никомед, Прадакса, Вессел Дуэ Ф, Ксарелто, Курантил, Плавикс, Зилт, Клопидогрел-Акрихин, Тромбонет, Коплавикс, Трентал, Пентоксифиллин, Брилинта] },
-            { shelf Шкаф № 12, group Метаболические средства, кардиопротекторы и аспириносодержащие, drugs [Актовегин, Солкосерил, Триметазидин, Карнитин, Метакартин, Корвалол, Валокордин, Милдронат, Мельдоний-Эском, Триметазидин-МВ, Тромбовазим, Кардиомагнил, Тромбо АСС, Аспирин Кардио, Ацетилсалициловая кислота] },
-            { shelf Шкаф № 13, group Статины, фибраты и гиполипидемические средства, drugs [Липритор, Аторвастатин, Торвакард, Аторис, Ливазо, Питавастатин, Симвастатин, Зокор, Фенофибрат, Трайкор, Фенофибрат Канон, Эзетимиб, Эзетрол, Озиамин, Омакор] },
-            { shelf Шкаф № 14, group Розувастатин и комбинированные гиполипидемические средства, drugs [Розувастатин, Крестор, Мертенил, Роксера, Креакол, Розулип Плюс, Атоплот, Эзетрол, Эзетимиб-СЗ] },
-            { shelf Шкаф № 15, group Анальгетики, жаропонижающие и комбинированные препараты, drugs [Анальгин, Метамизол натрия, Аспирин, Кофеин, Парацетамол, Ацетилсалициловая кислота, Цитрамон, Эффералган, Панадол] },
-            { shelf Шкаф № 16, group Спазмолитики, комбинированные анальгетики и сосудистые средства, drugs [Спазган, Спазмалгон, Ибупрофен, Питофенон, Фенпивериния бромид, Дантинорм бэби, Седальгин-М, Каффетин, Тиамин, Кофеин, Пенталгин-Н, Метамизол натрия, Панадол Экстра, Пенталгин, Напроксен, Дротаверин, Баралгин М, Темпалгин, Андипал, Белластезин, Бензокаин, Дибазол, Папаверин, Бендазол] },
-            { shelf Шкаф № 17, group НПВС и производные, drugs [Дексалгин, Кетодексал, Декскетопрофен-СЗ, Нурофен, Мотрин, Ибупрофен, Бруфен Плюс, Нурофен Лонг, Налгезин, Налгезин Форте, Напроксен] },
-            { shelf Шкаф № 18, group Спазмолитики ЖКТ и регуляторы моторики, drugs [Бускопан, Но-шпа, Дротаверин, Но-шпалгин, Дюспаталин, Ниаспам, Спарекс, Мебеверин-СЗ, Тридат, Тримедат, Необутин] },
-            { shelf Шкаф № 19, group НПВС, миорелаксанты и средства от мигрени, drugs [Мефлоцил, Ультрацеф, Амтолметил гуацил, Найз, Нимесил, Нимика, Аэртал, Ксефокам, Ксефокам Рапид, Тексамен, Артрадол, Диартрин, Флексидар, Имигран, Сумамигрен, Суматриптан-СЗ, Релпакс] },
-            { shelf Шкаф № 20, group НПВС, миорелаксанты центрального действия и анальгетики, drugs [Вольтарен, Диклофенак-Акрихин, Ортофен, Индометацин, Метиндол ретард, Кетонал, Флексен, Кетопрофен-Озон, Мовалис, Месипол, Амелотекс, Пироксикам, Баклофен, Сирдалуд, Тизалуд, Тизанидин-СЗ, Мидокалм, Толперизон-Озон] },
-            { shelf Шкаф № 21, group Ноотропы, вазодилататоры, вестибулокорректоры и метаболики, drugs [Пантогам, Пантокальцин, Глицин, Танакан, Гинкоум, Кавинтон, Винпоцетин, Элькар, Диваза, Нобен, Вазобрал, Мексидол, Мексидол Форте, Сермион, Ницерголин-Ферейн, Фенотропил, Нейродар, Фонтурацетам, Бетасерк, Вестибор, Бетагистин-СЗ, Драмина, Вертигохель] },
-            { shelf Шкаф № 22, group Ноотропы, нейрометаболические стимуляторы и адаптогены, drugs [Глиатилин, Церепро, Холина альфосцерат, Фенибут, Ноофен, Анвифен, Нооклерин, Деанола ацеглумат, Моликсан, Пикамилон, Ноотропил, Пирацетам, Омарон, Фезам, Стугерон, Циннаризин, Проспакта, Страттера, Аспаркам, Цераксон, Сомазин, Нейроцитин, Мексикор] },
-            { shelf Шкаф № 23, group Антидепрессанты, транквилизаторы и противоэпилептические средства, drugs [Атаракс, Гидроксизин, Мебикар, Адаптол, Грандаксин, Тофизопам, Стрезам, Этифоксин, Вальдоксан, Агомелатин, Амитриптилин, Велаксин, Венлафаксин, Симбалта, Дулоксетин, Анафранил, Кломипрамин, Ремерон, Миртазапин, Паксил, Рексетин, Пароксетин, Золофт, Сертралин, Триттико, Тразодон, Феварин, Флувоксамин, Прозак, Флуоксетин, Ципралекс, Эсциталопрам, Депакин, Вальпроевая кислота, Конвулекс, Конвалис, Нейронтин, Габапентин, Финлепсин, Карбамазепин, Тегретол, Ламикталь, Ламотриджин, Кеппра, Леветирацетам, Трилептал, Окскарбазепин, Топамакс, Топирамат] },
-            { shelf Шкаф № 24, group Нейролептики, снотворные, противопаркинсонические и седативные средства, drugs [Аксамон, Нейромидин, Ипидакрин, Донормил, Сомнол, Доксиламин, Мелаксен, Циркадин, Мелатонин, Тенотен, Персен, Ново-Пассит, Афобазол, Фабомотизола дигидрохлорид, Нервохель, Корвалол, Валокордин, Тералиджен, Алимемазин, Абилифай, Арипипразол, Галоперидол, Сероквель, Кветиапин, Зипрекса, Оланзапин, Эглонил, Сульпирид, Рисполепт, Рисперидон, Тиаприд, Сонапакс, Тиоридазин, Аминазин, Хлорпромазин, Труксал, Хлорпротиксен, ПК-Мерц, Амантадин, Наком, Синемет, Сталево, Леводопа+Карбидопа, Акатинол Мемантин, Мемантин, Проноран, Пирибедил, Мирапекс, Прамипексол] },
-            { shelf Шкаф № 25, group Сахароснижающие средства, drugs [Несина, Алоглиптин, Галвус Мет, Вилдаглиптин+Метформин, Историзан, Алоглиптин+Пиоглитазон, Тражента, Линаглиптин, Галвус, Вилдаглиптин, Джардинс, Эмпаглифлозин, Касоплит, Алоглиптин+Метформин, Сафоглиз, Гозоглиптин, Манинил, Глибенкламид, Форсига, Дапаглифлозин, Глибомет, Глибенкламид+Метформин, Диабетон МВ, Гликлазид, Глюкоренорм, Гликвидон, Онглиза, Саксаглиптин, Ксилдефен, Дапаглифлозин+Метформин, Амарил, Глимепирид, Глюкофаж Лонг, Метформин в комбинациях] },
-            { shelf Шкаф № 26, group Метформин, антиоксиданты и средства для снижения веса, drugs [Глюкофаж, Сиофор, Метформин, Берлитион, Тиогамма, Октолипен, Тиоктовая кислота, Ксеникал, Орсотен, Орлистат, Редуксин-Мет, Сибутрамин+Метформин, Редуксин, Линдакса, Голдлайн, Слимия, Меридиа] },
-            { shelf Шкаф № 27, group Гепатопротекторы, желчегонные и урсодезоксихолевая кислота, drugs [Гептрал, Гептор, Адеметионин, Гепабене, Дарсил, Легалон, Карсил, Силимарин, Гепа-Мерц, Орнитин, Урсосан, Урсофальк, Эксхол, Урсодезоксихолевая кислота, Эссенциале Форте, Эссенциале Н, Фосфоглив, Эссенциальные фосфолипиды, Хофитол, Артишока экстракт, Одестон, Гимекромон, Аллохол, Холосас, Шиповника экстракт] },
-            { shelf Шкаф № 28, group Ферментные препараты для пищеварения, drugs [Мезим, Креон, Панкреатин, Эрмиталь, Панцитрат, Фестал, Дигестал] },
-            { shelf Шкаф № 29, group Ингибиторы протонной помпы и противоязвенные, drugs [Ланзап, Лансопразол, Нольпаза, Пантопразол, Париет, Эпикур, Рабепразол, Ребагит, Ребамипид, Фамотидин, Квамател, Нексиум, Эзомепразол, Салофальк, Пентаса, Месалазин, Сульфасалазин, Метилурацил] },
-            { shelf Шкаф № 30, group Препараты висмута и комбинации, drugs [Де-Нол, Новобисмол, Висмута трикалия дицитрат, Омез Д, Домперидон+Омепразол, Омез, Омепразол, Ультоп] },
-            { shelf Шкаф № 31, group Антациды и обволакивающие средства, drugs [Алмагель, Маалокс, Алгелдрат+Магния гидроксид, Алмагель А, Маалокс с анестетиком, Гастал, Рутацид, Фосфалюгель, Ренни, Гевискон] },
-            { shelf Шкаф № 32, group Прокинетики, ветрогонные и антигельминтные, drugs [Акотиамид, Мотилиум, Домперидон, Ганатон, Итоприд, Ибергаст, Колофорт, Пепсан-Р, Диметикон+гвайзулен, Эспумизан, Боботик, Саб Симплекс, Симетикон, Метеоспазмил, Альверин+Симетикон, Церукал, Метоклопрамид, Альфазокс, Гиалуронат натрия+Хондроитинсульфат+Ксилитол+Полоксамер 407, Немозол, Альбендазол, Вермокс, Мебендазол, Пирантел, Гельминтокс] },
-            { shelf Шкаф № 33, group Кишечные антисептики и пробиотики, drugs [Экофурил, Стопдиар, Нифуроксазид, Энтерол, Лиофилизированные сахарамицеты, Имодиум, Лоперамид, Смекта, Смектит диоктаэдрический, Энтобан, Бифиформ, Линекс, Аципол, Бак-Сет, Лактобактерии ацидофильные+бифидобактерии бифидум] },
-            { shelf Шкаф № 34, group Сорбенты и слабительные средства, drugs [Полисорб, Диоксид кремния, Энтеросгель, Повидон, Уголь активированный, Бисакодил, Дюфалак, Порталак, Лактулоза, Сенаде, Сеннозиды, Гутталакс, Слабилен, Натрия пикосульфат, Фортранс, Лавакол, Калия сульфат+магния сульфат+натрия сульфат, Форлакс, Макрогол, Вазелиновое масло, Касторовое масло] },
-            { shelf Шкаф № 35, group Пенициллины, drugs [Флемоксин Солютаб, Амоксициллин, Аугментин, Амоксиклав, Флемоклав Солютаб, Амоксициллин+Клавулановая кислота] },
-            { shelf Шкаф № 36, group Макролиды, drugs [Сумамед, Азитромицин, Альфа Нормикс, Рифаксимин, Вильпрафен, Джозамицин, Клеримед, Кларитромицин, Макропен, Мидекамицин] },
-            { shelf Шкаф № 37, group Фторхинолоны, тетрациклины и цефалоспорины, drugs [Юнидокс Солютаб, Доксициклин, Офлоксацин, Тетрациклин, Далацин, Клиндамицин, Бисептол, Ко-тримоксазол, Ципролет А, Тинидазол+Ципрофлоксацин, Левомицетин, Хлорамфеникол, Таваник, Левофлоксацин, Линкомицин, Супракс, Цефиксим, Авелокс, Моксифлоксацин, Зиннат, Цефуроксим, Норфлокс, Норфлоксацин, Ципробай, Ципрофлоксацин, Пилобакт Нео, Кларитромицин+Амоксициллин+Лансопразол, Кларитромицин+Амоксициллин+Омепразол, Пилобакт, Кларитромицин+Омепразол+Тинидазол] },
-            { shelf Шкаф № 38, group Противогрибковые и антипротозойные, drugs [Метрогил, Метронидазол, Орунгал, Итраконазол, Макмирор, Нифурател, Пимафуцин, Натамицин, Тиберал, Орнидазол, Ламизил, Тербинафин, Секнидазол, Дифлюкан, Флуконазол, Фазижин, Тинидазол, Фталилсульфатиазол, Плаквенил, Гидроксихлорохин, Фуразолидон, Арава, Лефлуномид, Ципрофлоксацин+Орнидазол] },
-            { shelf Шкаф № 39, group Урологические средства и уросептики, drugs [Милурит, Аллопуринол, Кетостерил, Кетоаналог аминокислот, Бетимис, Мирабегрон, Везикар, Солифенацин, Детрузитол, Толтеродин, Улорик, Фебуксостат, Пиридин, Феназопиридин, Уролесан, Марены корневищ и корней экстракт, Блемарен, Натрия цитрат+калия гидрокарбонат, Уронефрон, Пинен+Камфен+цинеол+фенхон+борнеол+анетол, Канефрон Н, Леспенефрил, Леспедезы двухцветной побеги, 5-НОК, Нитроксолин, Фурагин, Нитрофурантоин, Пипемидовая кислота, Монурал, Фосфомицин, Фурамаг, Фуразидин] },
-            { shelf Шкаф № 40, group Противовирусные и ретиноиды, drugs [Рафамин, Эргоферон, Анаферон, Антигриппин, Аскорбиновая кислота+бендазол+альфа-глутамил-триптофан, Кагоцел, Лавомакс, Тилорон, Арбидол, Умифеновир, Тамифлю, Осельтамивир, Арепливир, Фавипиравир, Иммустат, Энисамия йодид, Зовиракс, Ацикловир, Валтрекс, Валацикловир, Фамвир, Фамцикловир, Акнекутан, Роаккутан, Изотретиноин] },
-            { shelf Шкаф № 41, group Иммуномодуляторы и системные энзимы, drugs [Ингавирин, Ремантадин, Циклоферон, Оксиэтиламмония метилфеноксиацетат, Оциллококцинум, Экстракт печени и сердца барбарийской утки, Деринат, Аминодигидрофталазиндион натрия, Полиоксидоний, Азоксимера бромид, Энгистол, Ликопид, Глюкозаминилмурамилдипептид, Изопринозин, Инозин пранобекс, Имудон, ИРС-19, Лизаты бактерий, Вобэнзим, Панкреатин+папаин+рутозида тригидрат+бромелаин+трипсин+липаза+амилаза+химотрипсин, Пидотимод] },
-            { shelf Шкаф № 42, group Средства для горла и полости рта, drugs [Тантум Верде, Бензидамин, Гексорал, Гексатидин, Люголь, Йод+Калия йодид+Глицерол, Каметон, Камфора+Хлоробутанол+Эвкалипта прутовидного листьев масло+Левоментол, Прополис, Стрепсилс, Амилметакрезол+Дихлорбензиловый спирт+Левоментол, Фарингосепт, Амбазон, Септолете Тотал, Бензокаин+Бензалкония хлорид+Тиротрицин, Грамицидин+Цетилпиридиния хлорид+Оксибупрокаин, Гомеовокс, Дихлорбензиловый спирт+Амилметакрезол, Лисобакт, Лизоцим+Пиридоксина гидрохлорид, Цетилпиридиния хлорид+Бензидамин, Пектусин, Эвкалиптовое масло+Рацементол] },
-            { shelf Шкаф № 47, group Гормональные контрацептивы и гестагены, drugs [Ярина, Джес, Мидиана, Видора, Ярина плюс, Фемоден, Планиженс, Норметрилла, Дроспиренон+Этинилэстрадиол, Димиа, Клайра, Диеногест+Эстрадиол, Жанин, Этинилэстрадиол+Диеногест, Марвелон, Этинилэстрадиол+Дезогестрел, Чарозетта, Дезогестрел, Диане-35, Этинилэстрадиол+Ципротерон, Новинет, Этинилэстрадиол+Гестоден, Джес Плюс, Дроспиренон+Этинилэстрадиол+Кальция левомефолат, Линдинет, Белара, Хлормадинон+Этинилэстрадиол, Регулон, Этинилэстрадиол+Левоноргестрел, Достинекс, Каберголин, Парлодел, Бромокриптин, Дюфастон, Дидрогестерон, Утрожестан, Прогестерон, Визанна, Диеногест, Постинор, Эскапел, Постиллания, Левоноргестрел, Норколут, Норэтистерон] },
-            { shelf Шкаф № 48, group Тиреоидные, ГКС и гемостатики, drugs [Эутирокс, L-Тироксин, Левотироксин натрия, Тирозол, Тиамазол, Дексаметазон, Метипред, Метилпреднизолон, Преднизолон, Аримидекс, Анастрозол, Гидроксикарбамид, Фемара, Летрозол, Метотрексат, Нольвадекс, Тамоксифен, Ци-Клим, Клималанин, Бета-аланин, Прогинова, Эстрадиол, Анжелик, Дроспиренон+Эстрадиол, Климаксан, Цимицифуги экстракт, Эстрадиол+Дидрогестерон, Фемостон, Климонорм, Эстрадиол+Левоноргестрел, Индолкарбинол, Мастодинон, Мастиол, Транексам, Транексамовая кислота, Дицинон, Этамзилат, Викасол] },
-            { shelf Шкаф № 49, group Средства для мужского здоровья и зависимостей, drugs [Силденафил, Вилдегра, Сиалис, Тадалафил, Импаза, Колме, Цианамид, Эспераль, Дисульфирам, Треонин+Пиридоксина гидрохлорид, Пропротен-100, Табакс, Цитизин, Афала, Афалаза, Простаты экстракт, Витапрост, Омник, Тамсулозин, Тамсулозин Велфарм, Доксазозин, Дуодарт, Дутастерид+Тамсулозин, Аводард, Дутастерид, Проскар, Финастерид, Силодозин, Алфузозин, Алфузозина гидрохлорид] },
-            { shelf Шкаф № 50, group Минералы и витамины, drugs [Панангин, Магне Б6, Аспаркам, Детримакс, Глюкоза, Вигантол, Супрадин, Остеогенон, Девилам, Форте Детрим, Аспаркам авексима] },
-            { shelf Шкаф № 51, group Витамины группы B и препараты железа, drugs [Комбилипен, Сорбифер Дурулес, Фолиевая кислота, Мальтофер, Ферлатум, Тотема, Феррум Лек, Ферретаб, Нейробион, Пентовит, Нейромультивит, Мильгамма композитум, Йодомарин, Миртилене форте, Фолацин] },
-            { shelf Шкаф № 52, group Офтальмологические капли, drugs [Аллергодил, Азеластин, Окуметил, Дифенгидрамина гидрохлорид+Нафазолина нитрат, Кромогексал, Кромоглициевая кислота, Опатанол, Олопатадин, Эпинастин, Ирифрин, Фенилэфрин, Дюгок, Тропикамид+Фенилэфрин, Бромфенак, Наклоф, Индометацин, Дикло-F, Диклофенак, Офтан Дексаметазон, Дексаметазон, Алкаин, Оксибупрокаин, Офтальмоферон, Ацикловир, Эмоксипин, Метилэтилпиридинол, Квинакс, Пиреноксина натрия моногидрат, Тобрекс, Тобрамицин, Норфлокс, Норфлоксацин, Тобрадекс, Дексаметазон+Тобрамицин, Софрадекс, Фрамицетин+Грамицидин+Дексаметазон, Ципролет, Ципрофлоксацин, Индоколлир, Макситрол, Тобрамицин+Фторметолон, Левофлоксацин, Окомистин, Пиклоксидин, Окулокид, Офтальмологические капли, Эритромицин, Глаупрост, Биматопрост, Ганфорт, Биматопрост+Тимолол, Альфаган, Бримонидина тартрат, Комган, Бримонидина тартрат+тимолол, Арутимол, Тимолол, Бринзоламид+Тимолол, Косопт, Дорзоламид+Тимолол, Ксалатан, Латанопрост, Дуотрав, Травопрост+Тимолол, Пилокарпин, Тимоптик, Бетаксолол, Бетоптик, Траватан, Травопрост, Азарга, Бринзоламид, Золотам, Клофелин, Тафлупрост, Тафен, Хлорамфеникол, Ципромед, Ципрофлоксацин+дексаметазон, Дорзопт, Накван, Визин, Сантабрим, Корнерегель, Офтрикс, Олоридин, Флоас Моно, Пиклосепт, Ивин8акс, Нормакс] }
+            { shelf: "Шкаф № 1", group: "Средства для снижения давления / Комбинации", drugs: ["Амлодипин", "Нормодипин", "Тенокс", "Леркамен", "Финоптин", "Верапамил", "Изоптин СР", "Плендил", "Дилтиазем", "Алтизем РР", "Экватор", "Висдекал", "Эгипрес", "Эквамер", "Эквапресс", "Эксфорж", "Вамлосет", "Лизиноприл", "Рамиприл", "Лерканидипин", "Фелодипин", "Амлодипин в комбинациях", "Амлодипин+Валсартан+Гидрохлортиазид", "Ирбесартан+Амлодипин", "Лизиноприл+Амлодипин", "Амлодипин+Индапамид+Лизиноприл", "Амлодипин+Лизиноприл+Розувастатин", "Амлодипин+Рамиприл", "Амлодипин+Лозартан"] },
+            { shelf: "Шкаф № 2", group: "Антагонисты рецепторов ангиотензина II (БРА)", drugs: ["Козаар", "Лориста", "Вазотенз", "Лозартан-СЗ", "Лозартан", "Презартан", "Атаканд", "Кандекор", "Гизаар", "Кандесартан-СЗ", "Капозид", "Кандесартан-Тева", "Гипосарт", "Кандесартан"] },
+            { shelf: "Шкаф № 3", group: "БРА и комбинированные антигипертензивные средства", drugs: ["Азилсартана медоксомил", "Эдарби", "Валсартан", "Диован", "Вальсакор", "Нортиван", "Ко-Диован", "Ко-Валсартан", "Юперио", "Апровель", "Ирбесартан-СЗ", "Апролид А", "Ко-Апровель", "Ирбесартан + Гидрохлоротиазид", "Кардосал", "Олмесарткроно", "Олмесартан-Сандоз", "Седатар H", "Кардосал Плюс", "Эквалок", "Микардис", "Телзап", "Пристукалор", "Микардис Плюс", "Телзап Н"] },
+            { shelf: "Шкаф № 4", group: "Бета-адреноблокаторы (селективные и комбинированные)", drugs: ["Конкор", "Конкор Кор", "Бисопролол-Акрихин", "Ниперт", "Арител", "Коронал", "Бипрол", "Бисопролол", "Карведилол", "Дилатренд", "Акридилол", "Карведилол-СЗ", "Арител А", "Лодоз", "Периндоприл", "Престариум"] },
+            { shelf: "Шкаф № 5", group: "Бета-адреноблокаторы (кардиоселективные и неселективные)", drugs: ["Тенолол", "Атенолол", "Теноретик", "Локрен", "Метопролол", "Метокард", "Беталок ЗОК", "Эгилок С", "Небиволол", "Небилет", "Небикар", "Небиволол-СЗ"] },
+            { shelf: "Шкаф № 6", group: "Антиаритмические, антиангинальные и кардиопротекторные средства", drugs: ["Кордарон", "Амиодарон-Акрихин", "Анаприлин", "Пропранолол", "Аллопинин", "Сотагексал", "Тразикор", "Соталол", "Корватон", "Молсидомин", "Этацизин", "Ритмонорм", "Пропафенон", "Дигоксин", "Кораксан", "Ивабрадин", "Кардикет", "Изодинит", "Моночинкве", "Эфокс Лонг", "Нитроглицерин", "Нитроспрей", "Нитронг", "Пентаэритритила тетранитрат", "Ранекса"] },
+            { shelf: "Шкаф № 7", group: "Ингибиторы АПФ и комбинированные гипотензивные средства", drugs: ["Зокардис", "Диротон", "Лизиноприл", "Лизиноприл Рихтер", "Диротон Плюс", "Лизирезид", "Ко-Диротон", "Рамиприл", "Тритэце", "Хартил", "Рамипирил-СЗ", "Эгипрес", "Пирамил Н", "Фозикард", "Моноприл", "Фозикард Н", "Эналаприл", "Энап", "Энап Н", "Энап НЛ"] },
+            { shelf: "Шкаф № 8", group: "Вазодилататоры, центральные гипотензивные и прочие средства", drugs: ["Каптоприл", "Капотен", "Капозид", "Физиотенз", "Моксонитекс", "Тонопрен", "Допегит", "Нифедипин", "Альбарел", "Раунатин", "Рилменидин", "Коринфар ретард", "Моксонидин"] },
+            { shelf: "Шкаф № 9", group: "Ингибиторы АПФ, комбинации и сопутствующие средства", drugs: ["Периндоприл", "Престариум", "Периндоприл-Рихтер", "Пенромед", "Периндоприл-СЗ", "Престанс", "Альнева", "Ко-Перинева", "Норипрел", "Норипрел А Форте", "Ко-Престариум", "Периндап", "Розувастатин", "Трипликсакс"] },
+            { shelf: "Шкаф № 10", group: "Диуретики и мочегонные средства", drugs: ["Диакарб", "Ацетазоламид", "Гипотиазид", "Арифон Ретард", "Индапамид", "Индап", "Верошпирон", "Альдактон", "Брилука", "Диувер", "Торасемид-СЗ", "Торсид", "Ауризон", "Дихлотиазид", "Триампур", "Фуросемид", "Инспра", "Эплеренон-СЗ", "Эпрелон"] },
+            { shelf: "Шкаф № 11", group: "Антикоагулянты, антиагреганты и ангиопротекторы", drugs: ["Апиксабан", "Эликвис", "Варфарин", "Варфарин Никомед", "Прадакса", "Вессел Дуэ Ф", "Ксарелто", "Курантил", "Плавикс", "Зилт", "Клопидогрел-Акрихин", "Тромбонет", "Коплавикс", "Трентал", "Пентоксифиллин", "Брилинта"] },
+            { shelf: "Шкаф № 12", group: "Метаболические средства, кардиопротекторы и аспириносодержащие", drugs: ["Актовегин", "Солкосерил", "Триметазидин", "Карнитин", "Метакартин", "Корвалол", "Валокордин", "Милдронат", "Мельдоний-Эском", "Триметазидин-МВ", "Тромбовазим", "Кардиомагнил", "Тромбо АСС", "Аспирин Кардио", "Ацетилсалициловая кислота"] },
+            { shelf: "Шкаф № 13", group: "Статины, фибраты и гиполипидемические средства", drugs: ["Липритор", "Аторвастатин", "Торвакард", "Аторис", "Ливазо", "Питавастатин", "Симвастатин", "Зокор", "Фенофибрат", "Трайкор", "Фенофибрат Канон", "Эзетимиб", "Эзетрол", "Озиамин", "Омакор"] },
+            { shelf: "Шкаф № 14", group: "Розувастатин и комбинированные гиполипидемические средства", drugs: ["Розувастатин", "Крестор", "Мертенил", "Роксера", "Креакол", "Розулип Плюс", "Атоплот", "Эзетрол", "Эзетимиб-СЗ"] },
+            { shelf: "Шкаф № 15", group: "Анальгетики, жаропонижающие и комбинированные препараты", drugs: ["Анальгин", "Метамизол натрия", "Аспирин", "Кофеин", "Парацетамол", "Ацетилсалициловая кислота", "Цитрамон", "Эффералган", "Панадол"] },
+            { shelf: "Шкаф № 16", group: "Спазмолитики, комбинированные анальгетики и сосудистые средства", drugs: ["Спазган", "Спазмалгон", "Ибупрофен", "Питофенон", "Фенпивериния бромид", "Дантинорм бэби", "Седальгин-М", "Каффетин", "Тиамин", "Кофеин", "Пенталгин-Н", "Метамизол натрия", "Панадол Экстра", "Пенталгин", "Напроксен", "Дротаверин", "Баралгин М", "Темпалгин", "Андипал", "Белластезин", "Бензокаин", "Дибазол", "Папаверин", "Бендазол"] },
+            { shelf: "Шкаф № 17", group: "НПВС и производные", drugs: ["Дексалгин", "Кетодексал", "Декскетопрофен-СЗ", "Нурофен", "Мотрин", "Ибупрофен", "Бруфен Плюс", "Нурофен Лонг", "Налгезин", "Налгезин Форте", "Напроксен"] },
+            { shelf: "Шкаф № 18", group: "Спазмолитики ЖКТ и регуляторы моторики", drugs: ["Бускопан", "Но-шпа", "Дротаверин", "Но-шпалгин", "Дюспаталин", "Ниаспам", "Спарекс", "Мебеверин-СЗ", "Тридат", "Тримедат", "Необутин"] },
+            { shelf: "Шкаф № 19", group: "НПВС, миорелаксанты и средства от мигрени", drugs: ["Мефлоцил", "Ультрацеф", "Амтолметил гуацил", "Найз", "Нимесил", "Нимика", "Аэртал", "Ксефокам", "Ксефокам Рапид", "Тексамен", "Артрадол", "Диартрин", "Флексидар", "Имигран", "Сумамигрен", "Суматриптан-СЗ", "Релпакс"] },
+            { shelf: "Шкаф № 20", group: "НПВС, миорелаксанты центрального действия и анальгетики", drugs: ["Вольтарен", "Диклофенак-Акрихин", "Ортофен", "Индометацин", "Метиндол ретард", "Кетонал", "Флексен", "Кетопрофен-Озон", "Мовалис", "Месипол", "Амелотекс", "Пироксикам", "Баклофен", "Сирдалуд", "Тизалуд", "Тизанидин-СЗ", "Мидокалм", "Толперизон-Озон"] },
+            { shelf: "Шкаф № 21", group: "Ноотропы, вазодилататоры, вестибулокорректоры и метаболики", drugs: ["Пантогам", "Пантокальцин", "Глицин", "Танакан", "Гинкоум", "Кавинтон", "Винпоцетин", "Элькар", "Диваза", "Нобен", "Вазобрал", "Мексидол", "Мексидол Форте", "Сермион", "Ницерголин-Ферейн", "Фенотропил", "Нейродар", "Фонтурацетам", "Бетасерк", "Вестибор", "Бетагистин-СЗ", "Драмина", "Вертигохель"] },
+            { shelf: "Шкаф № 22", group: "Ноотропы, нейрометаболические стимуляторы и адаптогены", drugs: ["Глиатилин", "Церепро", "Холина альфосцерат", "Фенибут", "Ноофен", "Анвифен", "Нооклерин", "Деанола ацеглумат", "Моликсан", "Пикамилон", "Ноотропил", "Пирацетам", "Омарон", "Фезам", "Стугерон", "Циннаризин", "Проспакта", "Страттера", "Аспаркам", "Цераксон", "Сомазин", "Нейроцитин", "Мексикор"] },
+            { shelf: "Шкаф № 23", group: "Антидепрессанты, транквилизаторы и противоэпилептические средства", drugs: ["Атаракс", "Гидроксизин", "Мебикар", "Адаптол", "Грандаксин", "Тофизопам", "Стрезам", "Этифоксин", "Вальдоксан", "Агомелатин", "Амитриптилин", "Велаксин", "Венлафаксин", "Симбалта", "Дулоксетин", "Анафранил", "Кломипрамин", "Ремерон", "Миртазапин", "Паксил", "Рексетин", "Пароксетин", "Золофт", "Сертралин", "Триттико", "Тразодон", "Феварин", "Флувоксамин", "Прозак", "Флуоксетин", "Ципралекс", "Эсциталопрам", "Депакин", "Вальпроевая кислота", "Конвулекс", "Конвалис", "Нейронтин", "Габапентин", "Финлепсин", "Карбамазепин", "Тегретол", "Ламикталь", "Ламотриджин", "Кеппра", "Леветирацетам", "Трилептал", "Окскарбазепин", "Топамакс", "Топирамат"] },
+            { shelf: "Шкаф № 24", group: "Нейролептики, снотворные, противопаркинсонические и седативные средства", drugs: ["Аксамон", "Нейромидин", "Ипидакрин", "Донормил", "Сомнол", "Доксиламин", "Мелаксен", "Циркадин", "Мелатонин", "Тенотен", "Персен", "Ново-Пассит", "Афобазол", "Фабомотизола дигидрохлорид", "Нервохель", "Корвалол", "Валокордин", "Тералиджен", "Алимемазин", "Абилифай", "Арипипразол", "Галоперидол", "Сероквель", "Кветиапин", "Зипрекса", "Оланзапин", "Эглонил", "Сульпирид", "Рисполепт", "Рисперидон", "Тиаприд", "Сонапакс", "Тиоридазин", "Аминазин", "Хлорпромазин", "Труксал", "Хлорпротиксен", "ПК-Мерц", "Амантадин", "Наком", "Синемет", "Сталево", "Леводопа+Карбидопа", "Акатинол Мемантин", "Мемантин", "Проноран", "Пирибедил", "Мирапекс", "Прамипексол"] },
+            { shelf: "Шкаф № 25", group: "Сахароснижающие средства", drugs: ["Несина", "Алоглиптин", "Галвус Мет", "Вилдаглиптин+Метформин", "Историзан", "Алоглиптин+Пиоглитазон", "Тражента", "Линаглиптин", "Галвус", "Вилдаглиптин", "Джардинс", "Эмпаглифлозин", "Касоплит", "Алоглиптин+Метформин", "Сафоглиз", "Гозоглиптин", "Манинил", "Глибенкламид", "Форсига", "Дапаглифлозин", "Глибомет", "Глибенкламид+Метформин", "Диабетон МВ", "Гликлазид", "Глюкоренорм", "Гликвидон", "Онглиза", "Саксаглиптин", "Ксилдефен", "Дапаглифлозин+Метформин", "Амарил", "Глимепирид", "Глюкофаж Лонг", "Метформин в комбинациях"] },
+            { shelf: "Шкаф № 26", group: "Метформин, антиоксиданты и средства для снижения веса", drugs: ["Глюкофаж", "Сиофор", "Метформин", "Берлитион", "Тиогамма", "Октолипен", "Тиоктовая кислота", "Ксеникал", "Орсотен", "Орлистат", "Редуксин-Мет", "Сибутрамин+Метформин", "Редуксин", "Линдакса", "Голдлайн", "Слимия", "Меридиа"] },
+            { shelf: "Шкаф № 27", group: "Гепатопротекторы, желчегонные и урсодезоксихолевая кислота", drugs: ["Гептрал", "Гептор", "Адеметионин", "Гепабене", "Дарсил", "Легалон", "Карсил", "Силимарин", "Гепа-Мерц", "Орнитин", "Урсосан", "Урсофальк", "Эксхол", "Урсодезоксихолевая кислота", "Эссенциале Форте", "Эссенциале Н", "Фосфоглив", "Эссенциальные фосфолипиды", "Хофитол", "Артишока экстракт", "Одестон", "Гимекромон", "Аллохол", "Холосас", "Шиповника экстракт"] },
+            { shelf: "Шкаф № 28", group: "Ферментные препараты для пищеварения", drugs: ["Мезим", "Креон", "Панкреатин", "Эрмиталь", "Панцитрат", "Фестал", "Дигестал"] },
+            { shelf: "Шкаф № 29", group: "Ингибиторы протонной помпы и противоязвенные", drugs: ["Ланзап", "Лансопразол", "Нольпаза", "Пантопразол", "Париет", "Эпикур", "Рабепразол", "Ребагит", "Ребамипид", "Фамотидин", "Квамател", "Нексиум", "Эзомепразол", "Салофальк", "Пентаса", "Месалазин", "Сульфасалазин", "Метилурацил"] },
+            { shelf: "Шкаф № 30", group: "Препараты висмута и комбинации", drugs: ["Де-Нол", "Новобисмол", "Висмута трикалия дицитрат", "Омез Д", "Домперидон+Омепразол", "Омез", "Омепразол", "Ультоп"] },
+            { shelf: "Шкаф № 31", group: "Антациды и обволакивающие средства", drugs: ["Алмагель", "Маалокс", "Алгелдрат+Магния гидроксид", "Алмагель А", "Маалокс с анестетиком", "Гастал", "Рутацид", "Фосфалюгель", "Ренни", "Гевискон"] },
+            { shelf: "Шкаф № 32", group: "Прокинетики, ветрогонные и антигельминтные", drugs: ["Акотиамид", "Мотилиум", "Домперидон", "Ганатон", "Итоприд", "Ибергаст", "Колофорт", "Пепсан-Р", "Диметикон+гвайзулен", "Эспумизан", "Боботик", "Саб Симплекс", "Симетикон", "Метеоспазмил", "Альверин+Симетикон", "Церукал", "Метоклопрамид", "Альфазокс", "Гиалуронат натрия+Хондроитинсульфат+Ксилитол+Полоксамер 407", "Немозол", "Альбендазол", "Вермокс", "Мебендазол", "Пирантел", "Гельминтокс"] },
+            { shelf: "Шкаф № 33", group: "Кишечные антисептики и пробиотики", drugs: ["Экофурил", "Стопдиар", "Нифуроксазид", "Энтерол", "Лиофилизированные сахарамицеты", "Имодиум", "Лоперамид", "Смекта", "Смектит диоктаэдрический", "Энтобан", "Бифиформ", "Линекс", "Аципол", "Бак-Сет", "Лактобактерии ацидофильные+бифидобактерии бифидум"] },
+            { shelf: "Шкаф № 34", group: "Сорбенты и слабительные средства", drugs: ["Полисорб", "Диоксид кремния", "Энтеросгель", "Повидон", "Уголь активированный", "Бисакодил", "Дюфалак", "Порталак", "Лактулоза", "Сенаде", "Сеннозиды", "Гутталакс", "Слабилен", "Натрия пикосульфат", "Фортранс", "Лавакол", "Калия сульфат+магния сульфат+натрия сульфат", "Форлакс", "Макрогол", "Вазелиновое масло", "Касторовое масло"] },
+            { shelf: "Шкаф № 35", group: "Пенициллины", drugs: ["Флемоксин Солютаб", "Амоксициллин", "Аугментин", "Амоксиклав", "Флемоклав Солютаб", "Амоксициллин+Клавулановая кислота"] },
+            { shelf: "Шкаф № 36", group: "Макролиды", drugs: ["Сумамед", "Азитромицин", "Альфа Нормикс", "Рифаксимин", "Вильпрафен", "Джозамицин", "Клеримед", "Кларитромицин", "Макропен", "Мидекамицин"] },
+            { shelf: "Шкаф № 37", group: "Фторхинолоны, тетрациклины и цефалоспорины", drugs: ["Юнидокс Солютаб", "Доксициклин", "Офлоксацин", "Тетрациклин", "Далацин", "Клиндамицин", "Бисептол", "Ко-тримоксазол", "Ципролет А", "Тинидазол+Ципрофлоксацин", "Левомицетин", "Хлорамфеникол", "Таваник", "Левофлоксацин", "Линкомицин", "Супракс", "Цефиксим", "Авелокс", "Моксифлоксацин", "Зиннат", "Цефуроксим", "Норфлокс", "Норфлоксацин", "Ципробай", "Ципрофлоксацин", "Пилобакт Нео", "Кларитромицин+Амоксициллин+Лансопразол", "Кларитромицин+Амоксициллин+Омепразол", "Пилобакт", "Кларитромицин+Омепразол+Тинидазол"] },
+            { shelf: "Шкаф № 38", group: "Противогрибковые и антипротозойные", drugs: ["Метрогил", "Метронидазол", "Орунгал", "Итраконазол", "Макмирор", "Нифурател", "Пимафуцин", "Натамицин", "Тиберал", "Орнидазол", "Ламизил", "Тербинафин", "Секнидазол", "Дифлюкан", "Флуконазол", "Фазижин", "Тинидазол", "Фталилсульфатиазол", "Плаквенил", "Гидроксихлорохин", "Фуразолидон", "Арава", "Лефлуномид", "Ципрофлоксацин+Орнидазол"] },
+            { shelf: "Шкаф № 39", group: "Урологические средства и уросептики", drugs: ["Милурит", "Аллопуринол", "Кетостерил", "Кетоаналог аминокислот", "Бетимис", "Мирабегрон", "Везикар", "Солифенацин", "Детрузитол", "Толтеродин", "Улорик", "Фебуксостат", "Пиридин", "Феназопиридин", "Уролесан", "Марены корневищ и корней экстракт", "Блемарен", "Натрия цитрат+калия гидрокарбонат", "Уронефрон", "Пинен+Камфен+цинеол+фенхон+борнеол+анетол", "Канефрон Н", "Леспенефрил", "Леспедезы двухцветной побеги", "5-НОК", "Нитроксолин", "Фурагин", "Нитрофурантоин", "Пипемидовая кислота", "Монурал", "Фосфомицин", "Фурамаг", "Фуразидин"] },
+            { shelf: "Шкаф № 40", group: "Противовирусные и ретиноиды", drugs: ["Рафамин", "Эргоферон", "Анаферон", "Антигриппин", "Аскорбиновая кислота+бендазол+альфа-глутамил-триптофан", "Кагоцел", "Лавомакс", "Тилорон", "Арбидол", "Умифеновир", "Тамифлю", "Осельтамивир", "Арепливир", "Фавипиравир", "Иммустат", "Энисамия йодид", "Зовиракс", "Ацикловир", "Валтрекс", "Валацикловир", "Фамвир", "Фамцикловир", "Акнекутан", "Роаккутан", "Изотретиноин"] },
+            { shelf: "Шкаф № 41", group: "Иммуномодуляторы и системные энзимы", drugs: ["Ингавирин", "Ремантадин", "Циклоферон", "Оксиэтиламмония метилфеноксиацетат", "Оциллококцинум", "Экстракт печени и сердца барбарийской утки", "Деринат", "Аминодигидрофталазиндион натрия", "Полиоксидоний", "Азоксимера бромид", "Энгистол", "Ликопид", "Глюкозаминилмурамилдипептид", "Изопринозин", "Инозин пранобекс", "Имудон", "ИРС-19", "Лизаты бактерий", "Вобэнзим", "Панкреатин+папаин+рутозида тригидрат+бромелаин+трипсин+липаза+амилаза+химотрипсин", "Пидотимод"] },
+            { shelf: "Шкаф № 42", group: "Средства для горла и полости рта", drugs: ["Тантум Верде", "Бензидамин", "Гексорал", "Гексатидин", "Люголь", "Йод+Калия йодид+Глицерол", "Каметон", "Камфора+Хлоробутанол+Эвкалипта прутовидного листьев масло+Левоментол", "Прополис", "Стрепсилс", "Амилметакрезол+Дихлорбензиловый спирт+Левоментол", "Фарингосепт", "Амбазон", "Септолете Тотал", "Бензокаин+Бензалкония хлорид+Тиротрицин", "Грамицидин+Цетилпиридиния хлорид+Оксибупрокаин", "Гомеовокс", "Дихлорбензиловый спирт+Амилметакрезол", "Лисобакт", "Лизоцим+Пиридоксина гидрохлорид", "Цетилпиридиния хлорид+Бензидамин", "Пектусин", "Эвкалиптовое масло+Рацементол"] },
+            { shelf: "Шкаф № 47", group: "Гормональные контрацептивы и гестагены", drugs: ["Ярина", "Джес", "Мидиана", "Видора", "Ярина плюс", "Фемоден", "Планиженс", "Норметрилла", "Дроспиренон+Этинилэстрадиол", "Димиа", "Клайра", "Диеногест+Эстрадиол", "Жанин", "Этинилэстрадиол+Диеногест", "Марвелон", "Этинилэстрадиол+Дезогестрел", "Чарозетта", "Дезогестрел", "Диане-35", "Этинилэстрадиол+Ципротерон", "Новинет", "Этинилэстрадиол+Гестоден", "Джес Плюс", "Дроспиренон+Этинилэстрадиол+Кальция левомефолат", "Линдинет", "Белара", "Хлормадинон+Этинилэстрадиол", "Регулон", "Этинилэстрадиол+Левоноргестрел", "Достинекс", "Каберголин", "Парлодел", "Бромокриптин", "Дюфастон", "Дидрогестерон", "Утрожестан", "Прогестерон", "Визанна", "Диеногест", "Постинор", "Эскапел", "Постиллания", "Левоноргестрел", "Норколут", "Норэтистерон"] },
+            { shelf: "Шкаф № 48", group: "Тиреоидные, ГКС и гемостатики", drugs: ["Эутирокс", "L-Тироксин", "Левотироксин натрия", "Тирозол", "Тиамазол", "Дексаметазон", "Метипред", "Метилпреднизолон", "Преднизолон", "Аримидекс", "Анастрозол", "Гидроксикарбамид", "Фемара", "Летрозол", "Метотрексат", "Нольвадекс", "Тамоксифен", "Ци-Клим", "Клималанин", "Бета-аланин", "Прогинова", "Эстрадиол", "Анжелик", "Дроспиренон+Эстрадиол", "Климаксан", "Цимицифуги экстракт", "Эстрадиол+Дидрогестерон", "Фемостон", "Климонорм", "Эстрадиол+Левоноргестрел", "Индолкарбинол", "Мастодинон", "Мастиол", "Транексам", "Транексамовая кислота", "Дицинон", "Этамзилат", "Викасол"] },
+            { shelf: "Шкаф № 49", group: "Средства для мужского здоровья и зависимостей", drugs: ["Силденафил", "Вилдегра", "Сиалис", "Тадалафил", "Импаза", "Колме", "Цианамид", "Эспераль", "Дисульфирам", "Треонин+Пиридоксина гидрохлорид", "Пропротен-100", "Табакс", "Цитизин", "Афала", "Афалаза", "Простаты экстракт", "Витапрост", "Омник", "Тамсулозин", "Тамсулозин Велфарм", "Доксазозин", "Дуодарт", "Дутастерид+Тамсулозин", "Аводард", "Дутастерид", "Проскар", "Финастерид", "Силодозин", "Алфузозин", "Алфузозина гидрохлорид"] },
+            { shelf: "Шкаф № 50", group: "Минералы и витамины", drugs: ["Панангин", "Магне Б6", "Аспаркам", "Детримакс", "Глюкоза", "Вигантол", "Супрадин", "Остеогенон", "Девилам", "Форте Детрим", "Аспаркам авексима"] },
+            { shelf: "Шкаф № 51", group: "Витамины группы B и препараты железа", drugs: ["Комбилипен", "Сорбифер Дурулес", "Фолиевая кислота", "Мальтофер", "Ферлатум", "Тотема", "Феррум Лек", "Ферретаб", "Нейробион", "Пентовит", "Нейромультивит", "Мильгамма композитум", "Йодомарин", "Миртилене форте", "Фолацин"] },
+            { shelf: "Шкаф № 52", group: "Офтальмологические капли", drugs: ["Аллергодил", "Азеластин", "Окуметил", "Дифенгидрамина гидрохлорид+Нафазолина нитрат", "Кромогексал", "Кромоглициевая кислота", "Опатанол", "Олопатадин", "Эпинастин", "Ирифрин", "Фенилэфрин", "Дюгок", "Тропикамид+Фенилэфрин", "Бромфенак", "Наклоф", "Индометацин", "Дикло-F", "Диклофенак", "Офтан Дексаметазон", "Дексаметазон", "Алкаин", "Оксибупрокаин", "Офтальмоферон", "Ацикловир", "Эмоксипин", "Метилэтилпиридинол", "Квинакс", "Пиреноксина натрия моногидрат", "Тобрекс", "Тобрамицин", "Норфлокс", "Норфлоксацин", "Тобрадекс", "Дексаметазон+Тобрамицин", "Софрадекс", "Фрамицетин+Грамицидин+Дексаметазон", "Ципролет", "Ципрофлоксацин", "Индоколлир", "Макситрол", "Тобрамицин+Фторметолон", "Левофлоксацин", "Окомистин", "Пиклоксидин", "Окулокид", "Офтальмологические капли", "Эритромицин", "Глаупрост", "Биматопрост", "Ганфорт", "Биматопрост+Тимолол", "Альфаган", "Бримонидина тартрат", "Комган", "Бримонидина тартрат+тимолол", "Арутимол", "Тимолол", "Бринзоламид+Тимолол", "Косопт", "Дорзоламид+Тимолол", "Ксалатан", "Латанопрост", "Дуотрав", "Травопрост+Тимолол", "Пилокарпин", "Тимоптик", "Бетаксолол", "Бетоптик", "Траватан", "Травопрост", "Азарга", "Бринзоламид", "Золотам", "Клофелин", "Тафлупрост", "Тафен", "Хлорамфеникол", "Ципромед", "Ципрофлоксацин+дексаметазон", "Дорзопт", "Накван", "Визин", "Сантабрим", "Корнерегель", "Офтрикс", "Олоридин", "Флоас Моно", "Пиклосепт", "Ивин8акс", "Нормакс"] }
         ];
 
-        let pharmacyData = JSON.parse(localStorage.getItem('pharmacyData'))  initialPharmacyData;
+        let pharmacyData = JSON.parse(localStorage.getItem('pharmacyData')) || initialPharmacyData;
 
         function saveToStorage() {
             localStorage.setItem('pharmacyData', JSON.stringify(pharmacyData));
         }
 
         const options = {
-            includeScore true,
-            threshold 0.3,
-            distance 100,
-            minMatchCharLength 3,
-            keys ['drugs']
+            includeScore: true,
+            threshold: 0.3,
+            distance: 100,
+            minMatchCharLength: 3,
+            keys: ['drugs']
         };
 
         let fuse = new Fuse(pharmacyData, options);
@@ -491,72 +491,72 @@ body
         function renderResults(query) {
             query = query.trim();
             if (!query) {
-                resultsContainer.innerHTML = ;
+                resultsContainer.innerHTML = "";
                 return;
             }
 
             const searchResults = fuse.search(query);
 
             if (searchResults.length === 0) {
-                resultsContainer.innerHTML = `div class=no-resultsНичего не найденоdiv`;
+                resultsContainer.innerHTML = `<div class="no-results">Ничего не найдено</div>`;
                 return;
             }
 
-            let htmlOutput = ;
+            let htmlOutput = "";
             for (let result of searchResults) {
                 const shelfItem = result.item;
-                const innerFuse = new Fuse(shelfItem.drugs, { threshold 0.35, includeScore true });
+                const innerFuse = new Fuse(shelfItem.drugs, { threshold: 0.35, includeScore: true });
                 const innerResults = innerFuse.search(query);
-                const matchedDrugsList = innerResults.map(res = res.item);
+                const matchedDrugsList = innerResults.map(res => res.item);
 
-                if (matchedDrugsList.length  0) {
+                if (matchedDrugsList.length > 0) {
                     htmlOutput += createShelfHtml(shelfItem, matchedDrugsList);
                 }
             }
 
-            resultsContainer.innerHTML = htmlOutput  `div class=no-resultsНичего не найденоdiv`;
+            resultsContainer.innerHTML = htmlOutput || `<div class="no-results">Ничего не найдено</div>`;
         }
 
         function createShelfHtml(item, matchedDrugsList) {
-            let drugsHtml = item.drugs.map(drug = {
+            let drugsHtml = item.drugs.map(drug => {
                 const isMatch = matchedDrugsList.includes(drug);
-                return `span class=drug-tag ${isMatch  'matched'  ''}${drug}span`;
+                return `<span class="drug-tag ${isMatch ? 'matched' : ''}">${drug}</span>`;
             }).join('');
 
             return `
-                div class=shelf-card
-                    div class=shelf-header
-                        div class=shelf-number${item.shelf}div
-                        div class=shelf-group${item.group}div
-                    div
-                    div class=drugs-titleПрепараты на шкафуdiv
-                    div class=drugs-list${drugsHtml}div
-                div
+                <div class="shelf-card">
+                    <div class="shelf-header">
+                        <div class="shelf-number">${item.shelf}</div>
+                        <div class="shelf-group">${item.group}</div>
+                    </div>
+                    <div class="drugs-title">Препараты на шкафу:</div>
+                    <div class="drugs-list">${drugsHtml}</div>
+                </div>
             `;
         }
 
-        searchInput.addEventListener('input', (e) = {
+        searchInput.addEventListener('input', (e) => {
             renderResults(e.target.value);
         });
 
-         --- УПРАВЛЕНИЕ АДМИНКОЙ ---
+        // --- УПРАВЛЕНИЕ АДМИНКОЙ ---
         const openAdminBtn = document.getElementById('openAdmin');
         const closeAdminBtn = document.getElementById('closeAdmin');
         const adminModal = document.getElementById('adminModal');
         const adminAccordionContainer = document.getElementById('adminAccordionContainer');
 
-        openAdminBtn.addEventListener('click', () = {
+        openAdminBtn.addEventListener('click', () => {
             buildAdminAccordion();
             adminModal.classList.add('active');
         });
 
-        closeAdminBtn.addEventListener('click', () = {
+        closeAdminBtn.addEventListener('click', () => {
             adminModal.classList.remove('active');
             fuse = new Fuse(pharmacyData, options);
             renderResults(searchInput.value);
         });
 
-        adminModal.addEventListener('click', (e) = {
+        adminModal.addEventListener('click', (e) => {
             if (e.target === adminModal) {
                 adminModal.classList.remove('active');
                 fuse = new Fuse(pharmacyData, options);
@@ -565,22 +565,22 @@ body
         });
 
         function buildAdminAccordion() {
-            adminAccordionContainer.innerHTML = ;
-            pharmacyData.forEach((item) = {
+            adminAccordionContainer.innerHTML = "";
+            pharmacyData.forEach((item) => {
                 const card = document.createElement('div');
                 card.className = 'admin-card';
 
                 const header = document.createElement('div');
                 header.className = 'admin-card-header';
                 header.innerHTML = `
-                    div class=admin-card-title
-                        strong${item.shelf}strong
-                        span${item.group}span
-                    div
-                    div class=admin-card-arrow▼div
+                    <div class="admin-card-title">
+                        <strong>${item.shelf}</strong>
+                        <span>${item.group}</span>
+                    </div>
+                    <div class="admin-card-arrow">▼</div>
                 `;
 
-                header.addEventListener('click', () = {
+                header.addEventListener('click', () => {
                     card.classList.toggle('open');
                 });
 
@@ -591,13 +591,13 @@ body
                 chipsBox.className = 'chips-box';
 
                 function renderChips() {
-                    chipsBox.innerHTML = ;
-                    item.drugs.forEach((drug, idx) = {
+                    chipsBox.innerHTML = "";
+                    item.drugs.forEach((drug, idx) => {
                         const chip = document.createElement('div');
                         chip.className = 'chip';
-                        chip.innerHTML = `span${drug}spanbutton class=chip-del title=Удалить&times;button`;
+                        chip.innerHTML = `<span>${drug}</span><button class="chip-del" title="Удалить">&times;</button>`;
                         
-                        chip.querySelector('.chip-del').addEventListener('click', () = {
+                        chip.querySelector('.chip-del').addEventListener('click', () => {
                             item.drugs.splice(idx, 1);
                             saveToStorage();
                             renderChips();
@@ -610,25 +610,25 @@ body
                 const addRow = document.createElement('div');
                 addRow.className = 'add-row';
                 addRow.innerHTML = `
-                    input type=text class=add-input placeholder=Добавить препарат...
-                    button class=add-btn+button
+                    <input type="text" class="add-input" placeholder="Добавить препарат...">
+                    <button class="add-btn">+</button>
                 `;
 
                 const input = addRow.querySelector('.add-input');
                 const btn = addRow.querySelector('.add-btn');
 
-                const handleAdd = () = {
+                const handleAdd = () => {
                     const val = input.value.trim();
                     if (val) {
                         item.drugs.push(val);
                         saveToStorage();
-                        input.value = ;
+                        input.value = "";
                         renderChips();
                     }
                 };
 
                 btn.addEventListener('click', handleAdd);
-                input.addEventListener('keypress', (e) = {
+                input.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') handleAdd();
                 });
 
@@ -640,6 +640,6 @@ body
                 adminAccordionContainer.appendChild(card);
             });
         }
-    script
-body
-html
+    </script>
+</body>
+</html>
