@@ -3,642 +3,759 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Апрель</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-    
+    <title>Апрель — Интерактивный поиск по шкафам</title>
+    <!-- Tailwind CSS for modern responsive utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Custom Configuration for Apple-like theme and brand colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            indigo: '#2F2580',
+                            pink: '#DC007B',
+                            lightBg: '#F8FAFC',
+                            cardBg: '#FFFFFF',
+                            borderLight: '#E2E8F0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica', 'Arial', sans-serif],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #faf9fc;
-            --card-bg: #ffffff;
-            --primary: #DC007B;
-            --primary-dark: #b80067;
-            --secondary: #2F2580;
-            --text-main: #1f1a3a;
-            --text-muted: #6e688a;
-            --border: #e6e3f2;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative;
+            background-color: #F0F2F5;
+            color: #1E293B;
+            -webkit-font-smoothing: antialiased;
         }
-
-        .main-wrapper {
-            width: 100%;
-            max-width: 640px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .apple-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 32px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .glow-search:focus-within {
+            box-shadow: 0 0 25px rgba(47, 37, 128, 0.15), 0 0 10px rgba(220, 0, 123, 0.1);
+            border-color: #2F2580;
         }
-
-        header h1 {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--secondary);
-            letter-spacing: -0.03em;
+        /* Custom scrollbar for clean minimal aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
         }
-
-        .admin-btn {
+        ::-webkit-scrollbar-track {
             background: transparent;
-            border: 2px solid var(--border);
-            color: var(--secondary);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
-
-        .admin-btn:hover {
-            border-color: var(--secondary);
-            background: rgba(47, 37, 128, 0.04);
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
         }
-
-        .search-box {
-            width: 100%;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 20px 28px;
-            font-size: 17px;
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            border-radius: 100px;
-            color: var(--text-main);
-            outline: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 20px rgba(47, 37, 128, 0.03);
-        }
-
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(220, 0, 123, 0.1);
-        }
-
-        .results-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-height: calc(100vh - 250px);
-            overflow-y: auto;
-            padding-bottom: 20px;
-        }
-
-        .shelf-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .shelf-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--primary);
-        }
-
-        .shelf-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .shelf-number {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--secondary);
-        }
-
-        .shelf-group {
-            font-size: 12px;
-            background: rgba(47, 37, 128, 0.05);
-            color: var(--secondary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        .drugs-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .drugs-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .drug-tag {
-            background: #f4f3f9;
-            border: 1px solid var(--border);
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .drug-tag.matched {
-            background: var(--primary);
-            color: #ffffff;
-            font-weight: 600;
-            border-color: var(--primary);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* МОДАЛЬНОЕ ОКНО АДМИНКИ */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(31, 26, 58, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .admin-modal.active {
-            display: flex;
-        }
-
-        .admin-content {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 750px;
-            height: 85vh;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 40px rgba(31, 26, 58, 0.2);
-            overflow: hidden;
-        }
-
-        .admin-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            flex-shrink: 0;
-        }
-
-        .admin-header h2 {
-            font-size: 20px;
-            color: var(--secondary);
-        }
-
-        .close-admin {
-            background: none;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .admin-body {
-            padding: 20px 24px;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #faf9fc;
-        }
-
-        /* КАРТОЧКИ ШКАФОВ В АДМИНКЕ (АККОРДЕОН) */
-        .admin-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .admin-card-header {
-            padding: 16px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            border-radius: 14px;
-            user-select: none;
-        }
-
-        .admin-card-header:hover {
-            background: rgba(47, 37, 128, 0.02);
-        }
-
-        .admin-card-title {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .admin-card-title strong {
-            font-size: 15px;
-            color: var(--secondary);
-        }
-
-        .admin-card-title span {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .admin-card-arrow {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: #f4f3f9;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-        }
-
-        .admin-card.open .admin-card-arrow {
-            transform: rotate(180deg);
-            background: rgba(47, 37, 128, 0.1);
-            color: var(--secondary);
-        }
-
-        .admin-card-body {
-            display: none;
-            padding: 16px 20px 20px 20px;
-            border-top: 1px solid var(--border);
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .admin-card.open .admin-card-body {
-            display: flex;
-        }
-
-        .chips-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f4f3f9;
-            border: 1px solid var(--border);
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .chip-del {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 1;
-        }
-
-        .add-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .add-input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .add-input:focus {
-            border-color: var(--primary);
-        }
-
-        .add-btn {
-            background: var(--primary);
-            color: #ffffff;
-            border: none;
-            padding: 0 18px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .add-btn:hover {
-            background: var(--primary-dark);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col font-sans selection:bg-[#DC007B] selection:text-white relative">
 
-    <div class="main-wrapper">
-        <header>
-            <h1>Апрель</h1>
-            <button class="admin-btn" id="openAdmin">Админка</button>
-        </header>
-
-        <div class="search-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="Введите название препарата..." autofocus>
-        </div>
-
-        <div id="results" class="results-container"></div>
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО АДМИНКИ -->
-    <div class="admin-modal" id="adminModal">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h2>Управление шкафами (1–52)</h2>
-                <button class="close-admin" id="closeAdmin">&times;</button>
+    <!-- Header -->
+    <header class="sticky top-0 z-30 apple-glass border-b border-brand-borderLight transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#2F2580] to-[#DC007B] flex items-center justify-center text-white shadow-md shadow-brand-indigo/20">
+                    <i class="fa-solid fa-prescription-bottle-medical text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold tracking-wider text-[#DC007B] uppercase block">Аптечный склад</span>
+                    <h1 class="text-xl font-bold tracking-tight text-[#2F2580]">Апрель</h1>
+                </div>
             </div>
-            <div class="admin-body" id="adminAccordionContainer"></div>
+
+            <div class="flex items-center space-x-3">
+                <button type="button" id="infoBtn" class="px-3.5 py-2 rounded-full text-xs font-medium bg-white border border-brand-borderLight text-slate-700 hover:bg-slate-50 transition shadow-sm flex items-center space-x-1.5 cursor-pointer">
+                    <i class="fa-solid fa-circle-info text-[#2F2580]"></i>
+                    <span class="hidden sm:inline">Как это устроено?</span>
+                </button>
+                <button type="button" id="adminBtn" class="px-5 py-2 rounded-full text-sm font-medium bg-[#2F2580] text-white hover:bg-[#231b63] transition shadow-lg shadow-brand-indigo/25 flex items-center space-x-2 cursor-pointer z-40 relative">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span>Админка</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col items-center">
+        
+        <!-- Big Hero Title & Search -->
+        <div class="w-full text-center mt-6 mb-3 sm:mt-10 sm:mb-5 space-y-6">
+            <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#2F2580]">
+                Апрель
+            </h2>
+            <p class="text-slate-500 text-sm sm:text-base max-w-md mx-auto">
+                Интеллектуальная система быстрого поиска лекарств по шкафам и стеллажам. Введите название препарата ниже.
+            </p>
+
+            <!-- Search Bar with Glow Effect -->
+            <div class="max-w-2xl mx-auto w-full relative">
+                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </div>
+                <div class="glow-search flex items-center bg-white border-2 border-brand-borderLight rounded-2xl shadow-xl shadow-slate-200/60 transition-all duration-300">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Например: Аспирин, Анальгин, Парацетамол..." 
+                        class="w-full pl-14 pr-12 py-4 bg-transparent text-slate-800 placeholder-slate-400 text-base sm:text-lg focus:outline-none rounded-2xl"
+                        autofocus
+                    >
+                    <button type="button" id="clearSearchBtn" class="hidden pr-5 text-slate-400 hover:text-[#DC007B] transition cursor-pointer">
+                        <i class="fa-solid fa-circle-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick search stats & filters -->
+            <div id="searchStats" class="text-xs text-slate-400 font-medium pt-1"></div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="cabinetsContainer" class="w-full grid grid-cols-1 md:grid-cols-2 gap-5 mt-1"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-16 text-center w-full">
+            <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-4 text-2xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-700">Ничего не найдено</h3>
+            <p class="text-sm text-slate-500 max-w-sm mt-1">По вашему запросу шкафы или препараты не обнаружены. Попробуйте изменить поисковый запрос или добавьте препарат в Админке.</p>
+        </div>
+
+    </main>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-100 transform transition-all">
+            <!-- Modal Header -->
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-[#2F2580]/10 text-[#2F2580] flex items-center justify-center">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800">Админ-панель шкафов</h3>
+                        <p class="text-xs text-slate-500">Управление хранилищами (до 130 шкафов/стеллажей)</p>
+                    </div>
+                </div>
+                <button type="button" id="closeAdminBtn" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 flex items-center justify-center transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- Add new cabinet action bar -->
+                <div class="bg-[#F8FAFC] border border-brand-borderLight rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div>
+                        <h4 class="font-semibold text-sm text-slate-800">Добавить новое хранилище</h4>
+                        <p class="text-xs text-slate-500" id="cabinetCountIndicator">Всего создано: 0 из 130</p>
+                    </div>
+                    <button type="button" id="addCabinetBtn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#DC007B] hover:bg-[#c2006b] text-white text-sm font-medium shadow-md shadow-brand-pink/20 transition flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                        <span>Добавить шкаф / стеллаж</span>
+                    </button>
+                </div>
+
+                <!-- Accordion List of Cabinets -->
+                <div id="adminCabinetsList" class="space-y-3"></div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end">
+                <button type="button" id="closeAdminBottomBtn" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium transition shadow-sm cursor-pointer">
+                    Готово / Сохранить
+                </button>
+            </div>
         </div>
     </div>
 
-    <script>
-        const initialPharmacyData = [
-            { shelf: "Шкаф № 1", group: "Средства для снижения давления / Комбинации", drugs: ["Амлодипин", "Нормодипин", "Тенокс", "Леркамен", "Финоптин", "Верапамил", "Изоптин СР", "Плендил", "Дилтиазем", "Алтизем РР", "Экватор", "Висдекал", "Эгипрес", "Эквамер", "Эквапресс", "Эксфорж", "Вамлосет", "Лизиноприл", "Рамиприл", "Лерканидипин", "Фелодипин", "Амлодипин в комбинациях", "Амлодипин+Валсартан+Гидрохлортиазид", "Ирбесартан+Амлодипин", "Лизиноприл+Амлодипин", "Амлодипин+Индапамид+Лизиноприл", "Амлодипин+Лизиноприл+Розувастатин", "Амлодипин+Рамиприл", "Амлодипин+Лозартан"] },
-            { shelf: "Шкаф № 2", group: "Антагонисты рецепторов ангиотензина II (БРА)", drugs: ["Козаар", "Лориста", "Вазотенз", "Лозартан-СЗ", "Лозартан", "Презартан", "Атаканд", "Кандекор", "Гизаар", "Кандесартан-СЗ", "Капозид", "Кандесартан-Тева", "Гипосарт", "Кандесартан"] },
-            { shelf: "Шкаф № 3", group: "БРА и комбинированные антигипертензивные средства", drugs: ["Азилсартана медоксомил", "Эдарби", "Валсартан", "Диован", "Вальсакор", "Нортиван", "Ко-Диован", "Ко-Валсартан", "Юперио", "Апровель", "Ирбесартан-СЗ", "Апролид А", "Ко-Апровель", "Ирбесартан + Гидрохлоротиазид", "Кардосал", "Олмесарткроно", "Олмесартан-Сандоз", "Седатар H", "Кардосал Плюс", "Эквалок", "Микардис", "Телзап", "Пристукалор", "Микардис Плюс", "Телзап Н"] },
-            { shelf: "Шкаф № 4", group: "Бета-адреноблокаторы (селективные и комбинированные)", drugs: ["Конкор", "Конкор Кор", "Бисопролол-Акрихин", "Ниперт", "Арител", "Коронал", "Бипрол", "Бисопролол", "Карведилол", "Дилатренд", "Акридилол", "Карведилол-СЗ", "Арител А", "Лодоз", "Периндоприл", "Престариум"] },
-            { shelf: "Шкаф № 5", group: "Бета-адреноблокаторы (кардиоселективные и неселективные)", drugs: ["Тенолол", "Атенолол", "Теноретик", "Локрен", "Метопролол", "Метокард", "Беталок ЗОК", "Эгилок С", "Небиволол", "Небилет", "Небикар", "Небиволол-СЗ"] },
-            { shelf: "Шкаф № 6", group: "Антиаритмические, антиангинальные и кардиопротекторные средства", drugs: ["Кордарон", "Амиодарон-Акрихин", "Анаприлин", "Пропранолол", "Аллопинин", "Сотагексал", "Тразикор", "Соталол", "Корватон", "Молсидомин", "Этацизин", "Ритмонорм", "Пропафенон", "Дигоксин", "Кораксан", "Ивабрадин", "Кардикет", "Изодинит", "Моночинкве", "Эфокс Лонг", "Нитроглицерин", "Нитроспрей", "Нитронг", "Пентаэритритила тетранитрат", "Ранекса"] },
-            { shelf: "Шкаф № 7", group: "Ингибиторы АПФ и комбинированные гипотензивные средства", drugs: ["Зокардис", "Диротон", "Лизиноприл", "Лизиноприл Рихтер", "Диротон Плюс", "Лизирезид", "Ко-Диротон", "Рамиприл", "Тритэце", "Хартил", "Рамипирил-СЗ", "Эгипрес", "Пирамил Н", "Фозикард", "Моноприл", "Фозикард Н", "Эналаприл", "Энап", "Энап Н", "Энап НЛ"] },
-            { shelf: "Шкаф № 8", group: "Вазодилататоры, центральные гипотензивные и прочие средства", drugs: ["Каптоприл", "Капотен", "Капозид", "Физиотенз", "Моксонитекс", "Тонопрен", "Допегит", "Нифедипин", "Альбарел", "Раунатин", "Рилменидин", "Коринфар ретард", "Моксонидин"] },
-            { shelf: "Шкаф № 9", group: "Ингибиторы АПФ, комбинации и сопутствующие средства", drugs: ["Периндоприл", "Престариум", "Периндоприл-Рихтер", "Пенромед", "Периндоприл-СЗ", "Престанс", "Альнева", "Ко-Перинева", "Норипрел", "Норипрел А Форте", "Ко-Престариум", "Периндап", "Розувастатин", "Трипликсакс"] },
-            { shelf: "Шкаф № 10", group: "Диуретики и мочегонные средства", drugs: ["Диакарб", "Ацетазоламид", "Гипотиазид", "Арифон Ретард", "Индапамид", "Индап", "Верошпирон", "Альдактон", "Брилука", "Диувер", "Торасемид-СЗ", "Торсид", "Ауризон", "Дихлотиазид", "Триампур", "Фуросемид", "Инспра", "Эплеренон-СЗ", "Эпрелон"] },
-            { shelf: "Шкаф № 11", group: "Антикоагулянты, антиагреганты и ангиопротекторы", drugs: ["Апиксабан", "Эликвис", "Варфарин", "Варфарин Никомед", "Прадакса", "Вессел Дуэ Ф", "Ксарелто", "Курантил", "Плавикс", "Зилт", "Клопидогрел-Акрихин", "Тромбонет", "Коплавикс", "Трентал", "Пентоксифиллин", "Брилинта"] },
-            { shelf: "Шкаф № 12", group: "Метаболические средства, кардиопротекторы и аспириносодержащие", drugs: ["Актовегин", "Солкосерил", "Триметазидин", "Карнитин", "Метакартин", "Корвалол", "Валокордин", "Милдронат", "Мельдоний-Эском", "Триметазидин-МВ", "Тромбовазим", "Кардиомагнил", "Тромбо АСС", "Аспирин Кардио", "Ацетилсалициловая кислота"] },
-            { shelf: "Шкаф № 13", group: "Статины, фибраты и гиполипидемические средства", drugs: ["Липритор", "Аторвастатин", "Торвакард", "Аторис", "Ливазо", "Питавастатин", "Симвастатин", "Зокор", "Фенофибрат", "Трайкор", "Фенофибрат Канон", "Эзетимиб", "Эзетрол", "Озиамин", "Омакор"] },
-            { shelf: "Шкаф № 14", group: "Розувастатин и комбинированные гиполипидемические средства", drugs: ["Розувастатин", "Крестор", "Мертенил", "Роксера", "Креакол", "Розулип Плюс", "Атоплот", "Эзетрол", "Эзетимиб-СЗ"] },
-            { shelf: "Шкаф № 15", group: "Анальгетики, жаропонижающие и комбинированные препараты", drugs: ["Анальгин", "Метамизол натрия", "Аспирин", "Кофеин", "Парацетамол", "Ацетилсалициловая кислота", "Цитрамон", "Эффералган", "Панадол"] },
-            { shelf: "Шкаф № 16", group: "Спазмолитики, комбинированные анальгетики и сосудистые средства", drugs: ["Спазган", "Спазмалгон", "Ибупрофен", "Питофенон", "Фенпивериния бромид", "Дантинорм бэби", "Седальгин-М", "Каффетин", "Тиамин", "Кофеин", "Пенталгин-Н", "Метамизол натрия", "Панадол Экстра", "Пенталгин", "Напроксен", "Дротаверин", "Баралгин М", "Темпалгин", "Андипал", "Белластезин", "Бензокаин", "Дибазол", "Папаверин", "Бендазол"] },
-            { shelf: "Шкаф № 17", group: "НПВС и производные", drugs: ["Дексалгин", "Кетодексал", "Декскетопрофен-СЗ", "Нурофен", "Мотрин", "Ибупрофен", "Бруфен Плюс", "Нурофен Лонг", "Налгезин", "Налгезин Форте", "Напроксен"] },
-            { shelf: "Шкаф № 18", group: "Спазмолитики ЖКТ и регуляторы моторики", drugs: ["Бускопан", "Но-шпа", "Дротаверин", "Но-шпалгин", "Дюспаталин", "Ниаспам", "Спарекс", "Мебеверин-СЗ", "Тридат", "Тримедат", "Необутин"] },
-            { shelf: "Шкаф № 19", group: "НПВС, миорелаксанты и средства от мигрени", drugs: ["Мефлоцил", "Ультрацеф", "Амтолметил гуацил", "Найз", "Нимесил", "Нимика", "Аэртал", "Ксефокам", "Ксефокам Рапид", "Тексамен", "Артрадол", "Диартрин", "Флексидар", "Имигран", "Сумамигрен", "Суматриптан-СЗ", "Релпакс"] },
-            { shelf: "Шкаф № 20", group: "НПВС, миорелаксанты центрального действия и анальгетики", drugs: ["Вольтарен", "Диклофенак-Акрихин", "Ортофен", "Индометацин", "Метиндол ретард", "Кетонал", "Флексен", "Кетопрофен-Озон", "Мовалис", "Месипол", "Амелотекс", "Пироксикам", "Баклофен", "Сирдалуд", "Тизалуд", "Тизанидин-СЗ", "Мидокалм", "Толперизон-Озон"] },
-            { shelf: "Шкаф № 21", group: "Ноотропы, вазодилататоры, вестибулокорректоры и метаболики", drugs: ["Пантогам", "Пантокальцин", "Глицин", "Танакан", "Гинкоум", "Кавинтон", "Винпоцетин", "Элькар", "Диваза", "Нобен", "Вазобрал", "Мексидол", "Мексидол Форте", "Сермион", "Ницерголин-Ферейн", "Фенотропил", "Нейродар", "Фонтурацетам", "Бетасерк", "Вестибор", "Бетагистин-СЗ", "Драмина", "Вертигохель"] },
-            { shelf: "Шкаф № 22", group: "Ноотропы, нейрометаболические стимуляторы и адаптогены", drugs: ["Глиатилин", "Церепро", "Холина альфосцерат", "Фенибут", "Ноофен", "Анвифен", "Нооклерин", "Деанола ацеглумат", "Моликсан", "Пикамилон", "Ноотропил", "Пирацетам", "Омарон", "Фезам", "Стугерон", "Циннаризин", "Проспакта", "Страттера", "Аспаркам", "Цераксон", "Сомазин", "Нейроцитин", "Мексикор"] },
-            { shelf: "Шкаф № 23", group: "Антидепрессанты, транквилизаторы и противоэпилептические средства", drugs: ["Атаракс", "Гидроксизин", "Мебикар", "Адаптол", "Грандаксин", "Тофизопам", "Стрезам", "Этифоксин", "Вальдоксан", "Агомелатин", "Амитриптилин", "Велаксин", "Венлафаксин", "Симбалта", "Дулоксетин", "Анафранил", "Кломипрамин", "Ремерон", "Миртазапин", "Паксил", "Рексетин", "Пароксетин", "Золофт", "Сертралин", "Триттико", "Тразодон", "Феварин", "Флувоксамин", "Прозак", "Флуоксетин", "Ципралекс", "Эсциталопрам", "Депакин", "Вальпроевая кислота", "Конвулекс", "Конвалис", "Нейронтин", "Габапентин", "Финлепсин", "Карбамазепин", "Тегретол", "Ламикталь", "Ламотриджин", "Кеппра", "Леветирацетам", "Трилептал", "Окскарбазепин", "Топамакс", "Топирамат"] },
-            { shelf: "Шкаф № 24", group: "Нейролептики, снотворные, противопаркинсонические и седативные средства", drugs: ["Аксамон", "Нейромидин", "Ипидакрин", "Донормил", "Сомнол", "Доксиламин", "Мелаксен", "Циркадин", "Мелатонин", "Тенотен", "Персен", "Ново-Пассит", "Афобазол", "Фабомотизола дигидрохлорид", "Нервохель", "Корвалол", "Валокордин", "Тералиджен", "Алимемазин", "Абилифай", "Арипипразол", "Галоперидол", "Сероквель", "Кветиапин", "Зипрекса", "Оланзапин", "Эглонил", "Сульпирид", "Рисполепт", "Рисперидон", "Тиаприд", "Сонапакс", "Тиоридазин", "Аминазин", "Хлорпромазин", "Труксал", "Хлорпротиксен", "ПК-Мерц", "Амантадин", "Наком", "Синемет", "Сталево", "Леводопа+Карбидопа", "Акатинол Мемантин", "Мемантин", "Проноран", "Пирибедил", "Мирапекс", "Прамипексол"] },
-            { shelf: "Шкаф № 25", group: "Сахароснижающие средства", drugs: ["Несина", "Алоглиптин", "Галвус Мет", "Вилдаглиптин+Метформин", "Историзан", "Алоглиптин+Пиоглитазон", "Тражента", "Линаглиптин", "Галвус", "Вилдаглиптин", "Джардинс", "Эмпаглифлозин", "Касоплит", "Алоглиптин+Метформин", "Сафоглиз", "Гозоглиптин", "Манинил", "Глибенкламид", "Форсига", "Дапаглифлозин", "Глибомет", "Глибенкламид+Метформин", "Диабетон МВ", "Гликлазид", "Глюкоренорм", "Гликвидон", "Онглиза", "Саксаглиптин", "Ксилдефен", "Дапаглифлозин+Метформин", "Амарил", "Глимепирид", "Глюкофаж Лонг", "Метформин в комбинациях"] },
-            { shelf: "Шкаф № 26", group: "Метформин, антиоксиданты и средства для снижения веса", drugs: ["Глюкофаж", "Сиофор", "Метформин", "Берлитион", "Тиогамма", "Октолипен", "Тиоктовая кислота", "Ксеникал", "Орсотен", "Орлистат", "Редуксин-Мет", "Сибутрамин+Метформин", "Редуксин", "Линдакса", "Голдлайн", "Слимия", "Меридиа"] },
-            { shelf: "Шкаф № 27", group: "Гепатопротекторы, желчегонные и урсодезоксихолевая кислота", drugs: ["Гептрал", "Гептор", "Адеметионин", "Гепабене", "Дарсил", "Легалон", "Карсил", "Силимарин", "Гепа-Мерц", "Орнитин", "Урсосан", "Урсофальк", "Эксхол", "Урсодезоксихолевая кислота", "Эссенциале Форте", "Эссенциале Н", "Фосфоглив", "Эссенциальные фосфолипиды", "Хофитол", "Артишока экстракт", "Одестон", "Гимекромон", "Аллохол", "Холосас", "Шиповника экстракт"] },
-            { shelf: "Шкаф № 28", group: "Ферментные препараты для пищеварения", drugs: ["Мезим", "Креон", "Панкреатин", "Эрмиталь", "Панцитрат", "Фестал", "Дигестал"] },
-            { shelf: "Шкаф № 29", group: "Ингибиторы протонной помпы и противоязвенные", drugs: ["Ланзап", "Лансопразол", "Нольпаза", "Пантопразол", "Париет", "Эпикур", "Рабепразол", "Ребагит", "Ребамипид", "Фамотидин", "Квамател", "Нексиум", "Эзомепразол", "Салофальк", "Пентаса", "Месалазин", "Сульфасалазин", "Метилурацил"] },
-            { shelf: "Шкаф № 30", group: "Препараты висмута и комбинации", drugs: ["Де-Нол", "Новобисмол", "Висмута трикалия дицитрат", "Омез Д", "Домперидон+Омепразол", "Омез", "Омепразол", "Ультоп"] },
-            { shelf: "Шкаф № 31", group: "Антациды и обволакивающие средства", drugs: ["Алмагель", "Маалокс", "Алгелдрат+Магния гидроксид", "Алмагель А", "Маалокс с анестетиком", "Гастал", "Рутацид", "Фосфалюгель", "Ренни", "Гевискон"] },
-            { shelf: "Шкаф № 32", group: "Прокинетики, ветрогонные и антигельминтные", drugs: ["Акотиамид", "Мотилиум", "Домперидон", "Ганатон", "Итоприд", "Ибергаст", "Колофорт", "Пепсан-Р", "Диметикон+гвайзулен", "Эспумизан", "Боботик", "Саб Симплекс", "Симетикон", "Метеоспазмил", "Альверин+Симетикон", "Церукал", "Метоклопрамид", "Альфазокс", "Гиалуронат натрия+Хондроитинсульфат+Ксилитол+Полоксамер 407", "Немозол", "Альбендазол", "Вермокс", "Мебендазол", "Пирантел", "Гельминтокс"] },
-            { shelf: "Шкаф № 33", group: "Кишечные антисептики и пробиотики", drugs: ["Экофурил", "Стопдиар", "Нифуроксазид", "Энтерол", "Лиофилизированные сахарамицеты", "Имодиум", "Лоперамид", "Смекта", "Смектит диоктаэдрический", "Энтобан", "Бифиформ", "Линекс", "Аципол", "Бак-Сет", "Лактобактерии ацидофильные+бифидобактерии бифидум"] },
-            { shelf: "Шкаф № 34", group: "Сорбенты и слабительные средства", drugs: ["Полисорб", "Диоксид кремния", "Энтеросгель", "Повидон", "Уголь активированный", "Бисакодил", "Дюфалак", "Порталак", "Лактулоза", "Сенаде", "Сеннозиды", "Гутталакс", "Слабилен", "Натрия пикосульфат", "Фортранс", "Лавакол", "Калия сульфат+магния сульфат+натрия сульфат", "Форлакс", "Макрогол", "Вазелиновое масло", "Касторовое масло"] },
-            { shelf: "Шкаф № 35", group: "Пенициллины", drugs: ["Флемоксин Солютаб", "Амоксициллин", "Аугментин", "Амоксиклав", "Флемоклав Солютаб", "Амоксициллин+Клавулановая кислота"] },
-            { shelf: "Шкаф № 36", group: "Макролиды", drugs: ["Сумамед", "Азитромицин", "Альфа Нормикс", "Рифаксимин", "Вильпрафен", "Джозамицин", "Клеримед", "Кларитромицин", "Макропен", "Мидекамицин"] },
-            { shelf: "Шкаф № 37", group: "Фторхинолоны, тетрациклины и цефалоспорины", drugs: ["Юнидокс Солютаб", "Доксициклин", "Офлоксацин", "Тетрациклин", "Далацин", "Клиндамицин", "Бисептол", "Ко-тримоксазол", "Ципролет А", "Тинидазол+Ципрофлоксацин", "Левомицетин", "Хлорамфеникол", "Таваник", "Левофлоксацин", "Линкомицин", "Супракс", "Цефиксим", "Авелокс", "Моксифлоксацин", "Зиннат", "Цефуроксим", "Норфлокс", "Норфлоксацин", "Ципробай", "Ципрофлоксацин", "Пилобакт Нео", "Кларитромицин+Амоксициллин+Лансопразол", "Кларитромицин+Амоксициллин+Омепразол", "Пилобакт", "Кларитромицин+Омепразол+Тинидазол"] },
-            { shelf: "Шкаф № 38", group: "Противогрибковые и антипротозойные", drugs: ["Метрогил", "Метронидазол", "Орунгал", "Итраконазол", "Макмирор", "Нифурател", "Пимафуцин", "Натамицин", "Тиберал", "Орнидазол", "Ламизил", "Тербинафин", "Секнидазол", "Дифлюкан", "Флуконазол", "Фазижин", "Тинидазол", "Фталилсульфатиазол", "Плаквенил", "Гидроксихлорохин", "Фуразолидон", "Арава", "Лефлуномид", "Ципрофлоксацин+Орнидазол"] },
-            { shelf: "Шкаф № 39", group: "Урологические средства и уросептики", drugs: ["Милурит", "Аллопуринол", "Кетостерил", "Кетоаналог аминокислот", "Бетимис", "Мирабегрон", "Везикар", "Солифенацин", "Детрузитол", "Толтеродин", "Улорик", "Фебуксостат", "Пиридин", "Феназопиридин", "Уролесан", "Марены корневищ и корней экстракт", "Блемарен", "Натрия цитрат+калия гидрокарбонат", "Уронефрон", "Пинен+Камфен+цинеол+фенхон+борнеол+анетол", "Канефрон Н", "Леспенефрил", "Леспедезы двухцветной побеги", "5-НОК", "Нитроксолин", "Фурагин", "Нитрофурантоин", "Пипемидовая кислота", "Монурал", "Фосфомицин", "Фурамаг", "Фуразидин"] },
-            { shelf: "Шкаф № 40", group: "Противовирусные и ретиноиды", drugs: ["Рафамин", "Эргоферон", "Анаферон", "Антигриппин", "Аскорбиновая кислота+бендазол+альфа-глутамил-триптофан", "Кагоцел", "Лавомакс", "Тилорон", "Арбидол", "Умифеновир", "Тамифлю", "Осельтамивир", "Арепливир", "Фавипиравир", "Иммустат", "Энисамия йодид", "Зовиракс", "Ацикловир", "Валтрекс", "Валацикловир", "Фамвир", "Фамцикловир", "Акнекутан", "Роаккутан", "Изотретиноин"] },
-            { shelf: "Шкаф № 41", group: "Иммуномодуляторы и системные энзимы", drugs: ["Ингавирин", "Ремантадин", "Циклоферон", "Оксиэтиламмония метилфеноксиацетат", "Оциллококцинум", "Экстракт печени и сердца барбарийской утки", "Деринат", "Аминодигидрофталазиндион натрия", "Полиоксидоний", "Азоксимера бромид", "Энгистол", "Ликопид", "Глюкозаминилмурамилдипептид", "Изопринозин", "Инозин пранобекс", "Имудон", "ИРС-19", "Лизаты бактерий", "Вобэнзим", "Панкреатин+папаин+рутозида тригидрат+бромелаин+трипсин+липаза+амилаза+химотрипсин", "Пидотимод"] },
-            { shelf: "Шкаф № 42", group: "Средства для горла и полости рта", drugs: ["Тантум Верде", "Бензидамин", "Гексорал", "Гексатидин", "Люголь", "Йод+Калия йодид+Глицерол", "Каметон", "Камфора+Хлоробутанол+Эвкалипта прутовидного листьев масло+Левоментол", "Прополис", "Стрепсилс", "Амилметакрезол+Дихлорбензиловый спирт+Левоментол", "Фарингосепт", "Амбазон", "Септолете Тотал", "Бензокаин+Бензалкония хлорид+Тиротрицин", "Грамицидин+Цетилпиридиния хлорид+Оксибупрокаин", "Гомеовокс", "Дихлорбензиловый спирт+Амилметакрезол", "Лисобакт", "Лизоцим+Пиридоксина гидрохлорид", "Цетилпиридиния хлорид+Бензидамин", "Пектусин", "Эвкалиптовое масло+Рацементол"] },
-            { shelf: "Шкаф № 47", group: "Гормональные контрацептивы и гестагены", drugs: ["Ярина", "Джес", "Мидиана", "Видора", "Ярина плюс", "Фемоден", "Планиженс", "Норметрилла", "Дроспиренон+Этинилэстрадиол", "Димиа", "Клайра", "Диеногест+Эстрадиол", "Жанин", "Этинилэстрадиол+Диеногест", "Марвелон", "Этинилэстрадиол+Дезогестрел", "Чарозетта", "Дезогестрел", "Диане-35", "Этинилэстрадиол+Ципротерон", "Новинет", "Этинилэстрадиол+Гестоден", "Джес Плюс", "Дроспиренон+Этинилэстрадиол+Кальция левомефолат", "Линдинет", "Белара", "Хлормадинон+Этинилэстрадиол", "Регулон", "Этинилэстрадиол+Левоноргестрел", "Достинекс", "Каберголин", "Парлодел", "Бромокриптин", "Дюфастон", "Дидрогестерон", "Утрожестан", "Прогестерон", "Визанна", "Диеногест", "Постинор", "Эскапел", "Постиллания", "Левоноргестрел", "Норколут", "Норэтистерон"] },
-            { shelf: "Шкаф № 48", group: "Тиреоидные, ГКС и гемостатики", drugs: ["Эутирокс", "L-Тироксин", "Левотироксин натрия", "Тирозол", "Тиамазол", "Дексаметазон", "Метипред", "Метилпреднизолон", "Преднизолон", "Аримидекс", "Анастрозол", "Гидроксикарбамид", "Фемара", "Летрозол", "Метотрексат", "Нольвадекс", "Тамоксифен", "Ци-Клим", "Клималанин", "Бета-аланин", "Прогинова", "Эстрадиол", "Анжелик", "Дроспиренон+Эстрадиол", "Климаксан", "Цимицифуги экстракт", "Эстрадиол+Дидрогестерон", "Фемостон", "Климонорм", "Эстрадиол+Левоноргестрел", "Индолкарбинол", "Мастодинон", "Мастиол", "Транексам", "Транексамовая кислота", "Дицинон", "Этамзилат", "Викасол"] },
-            { shelf: "Шкаф № 49", group: "Средства для мужского здоровья и зависимостей", drugs: ["Силденафил", "Вилдегра", "Сиалис", "Тадалафил", "Импаза", "Колме", "Цианамид", "Эспераль", "Дисульфирам", "Треонин+Пиридоксина гидрохлорид", "Пропротен-100", "Табакс", "Цитизин", "Афала", "Афалаза", "Простаты экстракт", "Витапрост", "Омник", "Тамсулозин", "Тамсулозин Велфарм", "Доксазозин", "Дуодарт", "Дутастерид+Тамсулозин", "Аводард", "Дутастерид", "Проскар", "Финастерид", "Силодозин", "Алфузозин", "Алфузозина гидрохлорид"] },
-            { shelf: "Шкаф № 50", group: "Минералы и витамины", drugs: ["Панангин", "Магне Б6", "Аспаркам", "Детримакс", "Глюкоза", "Вигантол", "Супрадин", "Остеогенон", "Девилам", "Форте Детрим", "Аспаркам авексима"] },
-            { shelf: "Шкаф № 51", group: "Витамины группы B и препараты железа", drugs: ["Комбилипен", "Сорбифер Дурулес", "Фолиевая кислота", "Мальтофер", "Ферлатум", "Тотема", "Феррум Лек", "Ферретаб", "Нейробион", "Пентовит", "Нейромультивит", "Мильгамма композитум", "Йодомарин", "Миртилене форте", "Фолацин"] },
-            { shelf: "Шкаф № 52", group: "Офтальмологические капли", drugs: ["Аллергодил", "Азеластин", "Окуметил", "Дифенгидрамина гидрохлорид+Нафазолина нитрат", "Кромогексал", "Кромоглициевая кислота", "Опатанол", "Олопатадин", "Эпинастин", "Ирифрин", "Фенилэфрин", "Дюгок", "Тропикамид+Фенилэфрин", "Бромфенак", "Наклоф", "Индометацин", "Дикло-F", "Диклофенак", "Офтан Дексаметазон", "Дексаметазон", "Алкаин", "Оксибупрокаин", "Офтальмоферон", "Ацикловир", "Эмоксипин", "Метилэтилпиридинол", "Квинакс", "Пиреноксина натрия моногидрат", "Тобрекс", "Тобрамицин", "Норфлокс", "Норфлоксацин", "Тобрадекс", "Дексаметазон+Тобрамицин", "Софрадекс", "Фрамицетин+Грамицидин+Дексаметазон", "Ципролет", "Ципрофлоксацин", "Индоколлир", "Макситрол", "Тобрамицин+Фторметолон", "Левофлоксацин", "Окомистин", "Пиклоксидин", "Окулокид", "Офтальмологические капли", "Эритромицин", "Глаупрост", "Биматопрост", "Ганфорт", "Биматопрост+Тимолол", "Альфаган", "Бримонидина тартрат", "Комган", "Бримонидина тартрат+тимолол", "Арутимол", "Тимолол", "Бринзоламид+Тимолол", "Косопт", "Дорзоламид+Тимолол", "Ксалатан", "Латанопрост", "Дуотрав", "Травопрост+Тимолол", "Пилокарпин", "Тимоптик", "Бетаксолол", "Бетоптик", "Траватан", "Травопрост", "Азарга", "Бринзоламид", "Золотам", "Клофелин", "Тафлупрост", "Тафен", "Хлорамфеникол", "Ципромед", "Ципрофлоксацин+дексаметазон", "Дорзопт", "Накван", "Визин", "Сантабрим", "Корнерегель", "Офтрикс", "Олоридин", "Флоас Моно", "Пиклосепт", "Ивин8акс", "Нормакс"] }
-        ];
+    <!-- Custom Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="fixed inset-0 z-[70] bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 text-center space-y-5 border border-slate-100 transform transition-all scale-100 animate-in">
+            <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="space-y-1.5">
+                <h3 class="font-bold text-lg text-slate-800">Точно ли хотите удалить?</h3>
+                <p class="text-xs text-slate-500 leading-relaxed" id="deleteConfirmText">Шкаф и все содержащиеся в нем препараты будут удалены без возможности восстановления.</p>
+            </div>
+            <div class="flex items-center space-x-3 pt-2">
+                <button type="button" id="cancelDeleteBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium transition cursor-pointer">
+                    Отмена
+                </button>
+                <button type="button" id="confirmDeleteBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition shadow-md shadow-red-500/20 cursor-pointer">
+                    Удалить
+                </button>
+            </div>
+        </div>
+    </div>
 
-        let pharmacyData = JSON.parse(localStorage.getItem('pharmacyData')) || initialPharmacyData;
+    <!-- Info Modal -->
+    <div id="infoModal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-xl w-full p-6 sm:p-8 space-y-6 relative border border-slate-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-[#DC007B]/10 text-[#DC007B] flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl text-slate-800">Руководство пользователя</h3>
+                    <p class="text-xs text-slate-500">Как быстро настроить и искать препараты</p>
+                </div>
+            </div>
 
-        function saveToStorage() {
-            localStorage.setItem('pharmacyData', JSON.stringify(pharmacyData));
-        }
+            <div class="space-y-3 text-sm text-slate-600 leading-relaxed">
+                <div class="p-4 bg-brand-lightBg rounded-2xl border border-brand-borderLight space-y-2">
+                    <h4 class="font-semibold text-[#2F2580] flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-[#DC007B]"></i>
+                        <span>1. Настройка в Админке</span>
+                    </h4>
+                    <p class="text-xs sm:text-sm text-slate-600">
+                        Откройте «Админку», создайте шкаф или стеллаж, переименуйте его под свои нужды, укажите описание (категорию или группу препаратов) и добавьте внутрь список нужных лекарств.
+                    </p>
+                </div>
 
-        const options = {
-            includeScore: true,
-            threshold: 0.3,
-            distance: 100,
-            minMatchCharLength: 3,
-            keys: ['drugs']
+                <div class="p-4 bg-brand-lightBg rounded-2xl border border-brand-borderLight space-y-2">
+                    <h4 class="font-semibold text-[#2F2580] flex items-center space-x-2">
+                        <i class="fa-solid fa-magnifying-glass text-[#DC007B]"></i>
+                        <span>2. Умный поиск на главном экране</span>
+                    </h4>
+                    <p class="text-xs sm:text-sm text-slate-600">
+                        Вводите название препарата в поисковую строку на главном экране. Система мгновенно покажет, в каком именно шкафу и в какой категории он находится.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button type="button" id="closeInfoBtn" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#2F2580] hover:bg-[#231b63] text-white text-sm font-medium transition shadow-md shadow-brand-indigo/20 cursor-pointer">
+                    Все понятно, спасибо!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase & Main Application Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = 'aprel-pharmacy-app-v1';
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyOaMhyGRXCJ3YbdhGdE8RKCi-uqc8Jys",
+            authDomain: "aprel-c6a80.firebaseapp.com",
+            projectId: "aprel-c6a80",
+            storageBucket: "aprel-c6a80.firebasestorage.app",
+            messagingSenderId: "460676761174",
+            appId: "1:460676761174:web:fa966175fbec29a7fe9df7"
         };
 
-        let fuse = new Fuse(pharmacyData, options);
+        let app, db, auth;
+        let cabinetsCache = [];
+        let unsubscribeCabinets = null;
+        let cabinetToDeleteId = null;
 
-        const searchInput = document.getElementById('searchInput');
-        const resultsContainer = document.getElementById('results');
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
 
-        function renderResults(query) {
-            query = query.trim();
-            if (!query) {
-                resultsContainer.innerHTML = "";
-                return;
-            }
-
-            const searchResults = fuse.search(query);
-
-            if (searchResults.length === 0) {
-                resultsContainer.innerHTML = `<div class="no-results">Ничего не найдено</div>`;
-                return;
-            }
-
-            let htmlOutput = "";
-            for (let result of searchResults) {
-                const shelfItem = result.item;
-                const innerFuse = new Fuse(shelfItem.drugs, { threshold: 0.35, includeScore: true });
-                const innerResults = innerFuse.search(query);
-                const matchedDrugsList = innerResults.map(res => res.item);
-
-                if (matchedDrugsList.length > 0) {
-                    htmlOutput += createShelfHtml(shelfItem, matchedDrugsList);
+            const initAuth = async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    startCabinetsListener();
+                } catch (err) {
+                    console.error("Auth error:", err);
+                    loadDefaultMockData();
                 }
-            }
-
-            resultsContainer.innerHTML = htmlOutput || `<div class="no-results">Ничего не найдено</div>`;
+            };
+            initAuth();
+        } catch (e) {
+            loadDefaultMockData();
         }
 
-        function createShelfHtml(item, matchedDrugsList) {
-            let drugsHtml = item.drugs.map(drug => {
-                const isMatch = matchedDrugsList.includes(drug);
-                return `<span class="drug-tag ${isMatch ? 'matched' : ''}">${drug}</span>`;
-            }).join('');
-
-            return `
-                <div class="shelf-card">
-                    <div class="shelf-header">
-                        <div class="shelf-number">${item.shelf}</div>
-                        <div class="shelf-group">${item.group}</div>
-                    </div>
-                    <div class="drugs-title">Препараты на шкафу:</div>
-                    <div class="drugs-list">${drugsHtml}</div>
-                </div>
-            `;
+        function getCabinetsCollectionRef() {
+            return collection(db, 'artifacts', appId, 'public', 'data', 'cabinets');
         }
 
-        searchInput.addEventListener('input', (e) => {
-            renderResults(e.target.value);
-        });
-
-        // --- УПРАВЛЕНИЕ АДМИНКОЙ ---
-        const openAdminBtn = document.getElementById('openAdmin');
-        const closeAdminBtn = document.getElementById('closeAdmin');
-        const adminModal = document.getElementById('adminModal');
-        const adminAccordionContainer = document.getElementById('adminAccordionContainer');
-
-        openAdminBtn.addEventListener('click', () => {
-            buildAdminAccordion();
-            adminModal.classList.add('active');
-        });
-
-        closeAdminBtn.addEventListener('click', () => {
-            adminModal.classList.remove('active');
-            fuse = new Fuse(pharmacyData, options);
-            renderResults(searchInput.value);
-        });
-
-        adminModal.addEventListener('click', (e) => {
-            if (e.target === adminModal) {
-                adminModal.classList.remove('active');
-                fuse = new Fuse(pharmacyData, options);
-                renderResults(searchInput.value);
-            }
-        });
-
-        function buildAdminAccordion() {
-            adminAccordionContainer.innerHTML = "";
-            pharmacyData.forEach((item) => {
-                const card = document.createElement('div');
-                card.className = 'admin-card';
-
-                const header = document.createElement('div');
-                header.className = 'admin-card-header';
-                header.innerHTML = `
-                    <div class="admin-card-title">
-                        <strong>${item.shelf}</strong>
-                        <span>${item.group}</span>
-                    </div>
-                    <div class="admin-card-arrow">▼</div>
-                `;
-
-                header.addEventListener('click', () => {
-                    card.classList.toggle('open');
+        function startCabinetsListener() {
+            try {
+                const colRef = getCabinetsCollectionRef();
+                unsubscribeCabinets = onSnapshot(colRef, (snapshot) => {
+                    const loaded = [];
+                    snapshot.forEach(docSnap => {
+                        loaded.push({ id: docSnap.id, ...docSnap.data() });
+                    });
+                    
+                    loaded.sort((a, b) => {
+                        const numA = parseInt((a.name || '').replace(/[^0-9]/g, '')) || 0;
+                        const numB = parseInt((b.name || '').replace(/[^0-9]/g, '')) || 0;
+                        return numA - numB;
+                    });
+                    cabinetsCache = loaded;
+                    updateUI();
+                }, (error) => {
+                    loadDefaultMockData();
                 });
+            } catch (err) {
+                loadDefaultMockData();
+            }
+        }
 
-                const body = document.createElement('div');
-                body.className = 'admin-card-body';
+        function loadDefaultMockData() {
+            cabinetsCache = [];
+            updateUI();
+        }
 
-                const chipsBox = document.createElement('div');
-                chipsBox.className = 'chips-box';
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminBtn = document.getElementById('adminBtn');
+            const adminModal = document.getElementById('adminModal');
+            const closeAdminBtn = document.getElementById('closeAdminBtn');
+            const closeAdminBottomBtn = document.getElementById('closeAdminBottomBtn');
 
-                function renderChips() {
-                    chipsBox.innerHTML = "";
-                    item.drugs.forEach((drug, idx) => {
-                        const chip = document.createElement('div');
-                        chip.className = 'chip';
-                        chip.innerHTML = `<span>${drug}</span><button class="chip-del" title="Удалить">&times;</button>`;
-                        
-                        chip.querySelector('.chip-del').addEventListener('click', () => {
-                            item.drugs.splice(idx, 1);
-                            saveToStorage();
-                            renderChips();
-                        });
-                        chipsBox.appendChild(chip);
+            const infoBtn = document.getElementById('infoBtn');
+            const infoModal = document.getElementById('infoModal');
+            const closeInfoBtn = document.getElementById('closeInfoBtn');
+
+            const searchInput = document.getElementById('searchInput');
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+            const addCabinetBtn = document.getElementById('addCabinetBtn');
+
+            const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+            if (adminBtn) {
+                adminBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (adminModal) {
+                        adminModal.classList.remove('hidden');
+                        renderAdminList();
+                    }
+                });
+            }
+
+            [closeAdminBtn, closeAdminBottomBtn].forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        if (adminModal) adminModal.classList.add('hidden');
+                        updateUI();
                     });
                 }
-                renderChips();
-
-                const addRow = document.createElement('div');
-                addRow.className = 'add-row';
-                addRow.innerHTML = `
-                    <input type="text" class="add-input" placeholder="Добавить препарат...">
-                    <button class="add-btn">+</button>
-                `;
-
-                const input = addRow.querySelector('.add-input');
-                const btn = addRow.querySelector('.add-btn');
-
-                const handleAdd = () => {
-                    const val = input.value.trim();
-                    if (val) {
-                        item.drugs.push(val);
-                        saveToStorage();
-                        input.value = "";
-                        renderChips();
-                    }
-                };
-
-                btn.addEventListener('click', handleAdd);
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') handleAdd();
-                });
-
-                body.appendChild(chipsBox);
-                body.appendChild(addRow);
-
-                card.appendChild(header);
-                card.appendChild(body);
-                adminAccordionContainer.appendChild(card);
             });
+
+            if (cancelDeleteBtn) {
+                cancelDeleteBtn.addEventListener('click', () => {
+                    if (deleteConfirmModal) deleteConfirmModal.classList.add('hidden');
+                    cabinetToDeleteId = null;
+                });
+            }
+
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener('click', async () => {
+                    if (!cabinetToDeleteId) return;
+                    const cabId = cabinetToDeleteId;
+                    
+                    if (deleteConfirmModal) deleteConfirmModal.classList.add('hidden');
+                    cabinetToDeleteId = null;
+
+                    cabinetsCache = cabinetsCache.filter(c => c.id !== cabId);
+                    updateUI();
+
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'cabinets', cabId));
+                    } catch (e) {
+                        console.error("Error deleting cabinet from cloud:", e);
+                    }
+                });
+            }
+
+            if (infoBtn) {
+                infoBtn.addEventListener('click', () => {
+                    if (infoModal) infoModal.classList.remove('hidden');
+                });
+            }
+
+            if (closeInfoBtn) {
+                closeInfoBtn.addEventListener('click', () => {
+                    if (infoModal) infoModal.classList.add('hidden');
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    if (clearSearchBtn) {
+                        if (val.trim() !== '') {
+                            clearSearchBtn.classList.remove('hidden');
+                        } else {
+                            clearSearchBtn.classList.add('hidden');
+                        }
+                    }
+                    updateUI();
+                });
+            }
+
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', () => {
+                    if (searchInput) {
+                        searchInput.value = '';
+                        clearSearchBtn.classList.add('hidden');
+                        searchInput.focus();
+                        updateUI();
+                    }
+                });
+            }
+
+            if (addCabinetBtn) {
+                addCabinetBtn.addEventListener('click', async () => {
+                    if (cabinetsCache.length >= 130) {
+                        const countEl = document.getElementById('cabinetCountIndicator');
+                        if (countEl) {
+                            countEl.innerText = "Достигнут максимальный лимит в 130 шкафов!";
+                            countEl.classList.add('text-red-600', 'font-bold');
+                            setTimeout(() => {
+                                countEl.classList.remove('text-red-600', 'font-bold');
+                                countEl.innerText = `Всего создано: ${cabinetsCache.length} из 130`;
+                            }, 3000);
+                        }
+                        return;
+                    }
+                    const newId = 'cab_' + Date.now();
+                    const newName = `Шкаф ${cabinetsCache.length + 1}`;
+                    const newCab = {
+                        name: newName,
+                        description: 'Новое хранилище медикаментов.',
+                        tags: [],
+                        updatedAt: Date.now()
+                    };
+
+                    cabinetsCache.push({ id: newId, ...newCab });
+                    updateUI();
+
+                    try {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'cabinets', newId), newCab);
+                    } catch (e) {
+                        console.error("Error adding cabinet to cloud:", e);
+                    }
+                });
+            }
+        });
+
+        function updateUI() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            renderMainResults(query);
+            renderAdminList();
+            
+            const countEl = document.getElementById('cabinetCountIndicator');
+            if (countEl && !countEl.classList.contains('text-red-600')) {
+                countEl.innerText = `Всего создано: ${cabinetsCache.length} из 130`;
+            }
+        }
+
+        function renderMainResults(searchQuery) {
+            const container = document.getElementById('cabinetsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const statsEl = document.getElementById('searchStats');
+            
+            if (!container) return;
+            container.innerHTML = '';
+
+            let filtered = cabinetsCache;
+            if (searchQuery !== '') {
+                filtered = cabinetsCache.filter(cab => {
+                    const matchName = cab.name.toLowerCase().includes(searchQuery);
+                    const matchDesc = cab.description && cab.description.toLowerCase().includes(searchQuery);
+                    const matchTags = cab.tags && cab.tags.some(t => t.toLowerCase().includes(searchQuery));
+                    return matchName || matchDesc || matchTags;
+                });
+            }
+
+            if (statsEl) {
+                if (searchQuery !== '') {
+                    statsEl.innerText = `Найдено шкафов: ${filtered.length} из ${cabinetsCache.length} (макс. 130)`;
+                } else {
+                    statsEl.innerText = '';
+                }
+            }
+
+            if (filtered.length === 0) {
+                if (emptyState) {
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                }
+                return;
+            } else {
+                if (emptyState) {
+                    emptyState.classList.remove('flex');
+                    emptyState.classList.add('hidden');
+                }
+            }
+
+            filtered.forEach(cab => {
+                const card = document.createElement('div');
+                card.className = "bg-gradient-to-br from-white to-slate-50/90 rounded-3xl p-6 shadow-md hover:shadow-xl border-2 border-slate-300/80 transition-all duration-300 flex flex-col justify-between group";
+
+                let tagsHtml = '';
+                if (cab.tags && cab.tags.length > 0) {
+                    tagsHtml = cab.tags.map(tag => {
+                        const isMatch = searchQuery !== '' && tag.toLowerCase().includes(searchQuery);
+                        const tagClass = isMatch 
+                            ? "bg-[#DC007B] text-white font-bold shadow-sm" 
+                            : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 font-medium";
+                        return `<span class="px-3 py-1.5 rounded-xl text-xs transition ${tagClass}">${tag}</span>`;
+                    }).join('');
+                } else {
+                    tagsHtml = `<span class="text-xs text-slate-400 italic">В этом шкафу пока нет зарегистрированных препаратов</span>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-11 h-11 rounded-2xl bg-[#2F2580] text-white flex items-center justify-center font-bold text-base shadow-sm shadow-[#2F2580]/30">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-lg text-[#2F2580]">${escapeHtml(cab.name)}</h3>
+                                    <p class="text-xs text-slate-600 font-medium mt-0.5">${escapeHtml(cab.description || 'Без описания')}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3.5 border-t border-slate-200/60">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Препараты в шкафу:</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${tagsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderAdminList() {
+            const adminListEl = document.getElementById('adminCabinetsList');
+            if (!adminListEl) return;
+            
+            const openAccordions = {};
+            adminListEl.querySelectorAll('[id^="acc_"]').forEach(acc => {
+                if (!acc.classList.contains('hidden')) {
+                    const id = acc.id.replace('acc_', '');
+                    openAccordions[id] = true;
+                }
+            });
+
+            adminListEl.innerHTML = '';
+
+            if (cabinetsCache.length === 0) {
+                adminListEl.innerHTML = ``;
+                return;
+            }
+
+            cabinetsCache.forEach((cab, index) => {
+                const item = document.createElement('div');
+                item.className = "bg-white border border-brand-borderLight rounded-2xl p-4 shadow-sm space-y-3 transition";
+
+                let adminTagsHtml = '';
+                if (cab.tags && cab.tags.length > 0) {
+                    adminTagsHtml = cab.tags.map((tag, tIndex) => `
+                        <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-medium text-slate-700">
+                            <span>${escapeHtml(tag)}</span>
+                            <button type="button" onclick="window.removeTag('${cab.id}', ${tIndex})" class="text-slate-400 hover:text-red-600 ml-1 transition cursor-pointer">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </span>
+                    `).join('');
+                } else {
+                    adminTagsHtml = `<span class="text-xs text-slate-400 italic">Препараты не добавлены</span>`;
+                }
+
+                const descriptionSubText = cab.description && cab.description.trim() !== '' 
+                    ? `<p class="text-xs text-slate-500 truncate max-w-xs sm:max-w-md">${escapeHtml(cab.description)}</p>` 
+                    : `<p class="text-xs text-slate-400 italic">Без описания</p>`;
+
+                const isOpen = openAccordions[cab.id];
+                const hiddenClass = isOpen ? '' : 'hidden';
+                const rotateClass = isOpen ? 'rotate-180' : '';
+
+                item.innerHTML = `
+                    <div class="flex items-center justify-between cursor-pointer" onclick="window.toggleAccordion('${cab.id}')">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-[#2F2580] flex items-center justify-center font-bold text-xs">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <span class="font-bold text-sm text-slate-800 block">${escapeHtml(cab.name)}</span>
+                                ${descriptionSubText}
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button type="button" onclick="event.stopPropagation(); window.deleteCabinet('${cab.id}')" class="w-8 h-8 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 flex items-center justify-center transition cursor-pointer" title="Удалить шкаф">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                            <i id="icon_${cab.id}" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform ${rotateClass}"></i>
+                        </div>
+                    </div>
+
+                    <div id="acc_${cab.id}" class="${hiddenClass} pt-3 border-t border-slate-100 space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Наименование шкафа / стеллажа</label>
+                                <input type="text" id="name_${cab.id}" value="${escapeHtml(cab.name)}" oninput="window.saveCabinetFieldSilent('${cab.id}', 'name', this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#2F2580]">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Описание / расположение</label>
+                                <input type="text" id="desc_${cab.id}" value="${escapeHtml(cab.description || '')}" oninput="window.saveCabinetFieldSilent('${cab.id}', 'description', this.value)" placeholder="Например: Кардиологический сектор..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#2F2580]">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Препараты (теги) в этом шкафу</label>
+                            <div class="flex flex-wrap gap-1.5 mb-2.5">
+                                ${adminTagsHtml}
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="text" id="newtag_${cab.id}" placeholder="Введите название препарата..." class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#DC007B]" onkeypress="if(event.key === 'Enter') { window.addTag('${cab.id}'); }">
+                                <button type="button" onclick="window.addTag('${cab.id}')" class="px-4 py-2 bg-[#DC007B] hover:bg-[#c2006b] text-white text-xs font-medium rounded-xl transition shadow-sm cursor-pointer">
+                                    Добавить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                adminListEl.appendChild(item);
+            });
+        }
+
+        window.toggleAccordion = function(cabId) {
+            const acc = document.getElementById(`acc_${cabId}`);
+            const icon = document.getElementById(`icon_${cabId}`);
+            if (acc) {
+                if (acc.classList.contains('hidden')) {
+                    acc.classList.remove('hidden');
+                    if (icon) icon.classList.add('rotate-180');
+                } else {
+                    acc.classList.add('hidden');
+                    if (icon) icon.classList.remove('rotate-180');
+                }
+            }
+        };
+
+        window.saveCabinetFieldSilent = async function(cabId, field, value) {
+            const cab = cabinetsCache.find(c => c.id === cabId);
+            if (!cab) return;
+            cab[field] = value.trim();
+            cab.updatedAt = Date.now();
+
+            try {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'cabinets', cabId), {
+                    name: cab.name,
+                    description: cab.description,
+                    tags: cab.tags,
+                    updatedAt: cab.updatedAt
+                }, { merge: true });
+            } catch (e) {
+                console.error("Error updating cabinet field:", e);
+            }
+        };
+
+        window.deleteCabinet = function(cabId) {
+            const cab = cabinetsCache.find(c => c.id === cabId);
+            if (!cab) return;
+            
+            cabinetToDeleteId = cabId;
+            const deleteConfirmText = document.getElementById('deleteConfirmText');
+            if (deleteConfirmText) {
+                deleteConfirmText.innerHTML = `Шкаф <b>"${escapeHtml(cab.name)}"</b> и все содержащиеся в нем препараты будут удалены без возможности восстановления.`;
+            }
+
+            const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+            if (deleteConfirmModal) {
+                deleteConfirmModal.classList.remove('hidden');
+            }
+        };
+
+        window.addTag = async function(cabId) {
+            const input = document.getElementById(`newtag_${cabId}`);
+            if (!input) return;
+            const tagVal = input.value.trim();
+            if (!tagVal) return;
+
+            const cab = cabinetsCache.find(c => c.id === cabId);
+            if (!cab) return;
+
+            if (!cab.tags) cab.tags = [];
+            if (!cab.tags.includes(tagVal)) {
+                cab.tags.push(tagVal);
+                input.value = '';
+                cab.updatedAt = Date.now();
+                updateUI();
+                const acc = document.getElementById(`acc_${cabId}`);
+                if (acc) acc.classList.remove('hidden');
+
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'cabinets', cabId), {
+                        name: cab.name,
+                        description: cab.description,
+                        tags: cab.tags,
+                        updatedAt: cab.updatedAt
+                    }, { merge: true });
+                } catch (e) {
+                    console.error("Error adding tag:", e);
+                }
+            }
+        };
+
+        window.removeTag = async function(cabId, tagIndex) {
+            const cab = cabinetsCache.find(c => c.id === cabId);
+            if (!cab || !cab.tags) return;
+
+            cab.tags.splice(tagIndex, 1);
+            cab.updatedAt = Date.now();
+            updateUI();
+            
+            const acc = document.getElementById(`acc_${cabId}`);
+            if (acc) acc.classList.remove('hidden');
+
+            try {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'cabinets', cabId), {
+                    name: cab.name,
+                    description: cab.description,
+                    tags: cab.tags,
+                    updatedAt: cab.updatedAt
+                }, { merge: true });
+            } catch (e) {
+                console.error("Error removing tag:", e);
+            }
+        };
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/@/g, "&#39;");
         }
     </script>
 </body>
